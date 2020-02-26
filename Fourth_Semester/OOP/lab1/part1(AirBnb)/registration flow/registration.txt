@@ -1,0 +1,5 @@
+sequenceDiagram
+    Frontend->>+AuthorizationService: register
+    AuthorizationService->>AuthorizationService: persist user credentials
+    AuthorizationService->>-UserService: create user
+	

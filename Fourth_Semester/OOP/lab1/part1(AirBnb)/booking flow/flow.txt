@@ -1,0 +1,31 @@
+sequenceDiagram
+	Note left of Frontend: customer requests
+	Frontend->>+BookingService:customer requests booking
+	BookingService->>BookingService:Checks availability
+	alt dates not available
+		BookingService->>Frontend: availability error
+	end
+	BookingService->>BookingService: persist request
+	BookingService->>-NotificationService: notify owner
+	
+	Note left of Frontend: owner responds to request
+	Frontend->>+BookingService:owner accepst request
+	BookingService->>-NotificationService: send customer payment link 
+	alt request declined
+		Frontend->>+BookingService:owner declines request
+		BookingService->>BookingService: persist decline
+		BookingService->>-NotificationService: notify customer
+	end
+
+	Note left of Frontend: customer pays
+	Frontend->>+CheckoutService:customer pays
+	CheckoutService->>CheckoutService: persist payment
+	CheckoutService->>BookingService: lock dates
+	CheckoutService->>NotificationService: notify owner
+	CheckoutService->>-NotificationService: notify customer & send contacts
+
+
+
+	
+
+					

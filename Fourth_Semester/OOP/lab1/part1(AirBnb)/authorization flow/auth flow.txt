@@ -1,0 +1,15 @@
+sequenceDiagram
+	note left of Frontend: Authentication
+	Frontend->>+AuthorizationService: authenticate(username+password)
+	AuthorizationService->>AuthorizationService: validates credentials
+	AuthorizationService->>Frontend: JWT token
+	alt invalid credentials
+		AuthorizationService->>-Frontend: unauthorized error
+	end
+
+	note left of Frontend: How other services authorize
+	Frontend->>+AnotherService: request(contains JWT in header)
+	AnotherService->>AuthorizationService: authorize from JWT
+	AuthorizationService->>AnotherService: authorization
+	AnotherService->>-Frontend: response
+					
