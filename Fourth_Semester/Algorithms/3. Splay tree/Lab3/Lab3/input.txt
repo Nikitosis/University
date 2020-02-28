@@ -1,0 +1,8 @@
++ Somefile.txt 10
++ image.png 521
++ ball.jpg 10000
++ mini.ico 3
++ game.exe 10000000
+? ball.jpg 10000
+- ball.jpg 10000
+? ball.jpg 10000

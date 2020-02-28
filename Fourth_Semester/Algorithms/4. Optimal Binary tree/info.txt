@@ -1,0 +1,3 @@
+https://site.ada.edu.az/~medv/acm/Docs%20e-olimp/Volume%2016/1522.htm
+
+Дерево сортирует файлы по названию. Когда мы достаем файл, у него увеличивается frequency. 

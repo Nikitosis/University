@@ -1,0 +1,11 @@
++ Somefile.txt 10
++ image.png 521
++ ball.jpg 10000
++ mini.ico 3
++ game.exe 10000000
+n 1
+n 2
+n 3
+n 4
+n 5
+?
