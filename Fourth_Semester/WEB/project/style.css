@@ -1,0 +1,180 @@
+@font-face {
+ font-family: "PT Sans";
+ src: url(https://fonts.googleapis.com/css?family=PT+Sans&display=swap)
+}
+
+*{
+	font-family: PT Sans
+	font-size: 14px;
+	line-height: 22px;
+}
+
+a {
+  	color: inherit; /* blue colors for links too */
+  	text-decoration: inherit; /* no underline */
+}
+a:hover{
+	color: inherit;
+	text-decoration: inherit; /* no underline */
+}
+
+body{ 
+  display:flex; 
+  flex-direction:column; 
+}
+
+.container{
+	width:980px;
+}
+
+.header{
+	background: url("./img/header_background.jfif");
+	background-repeat: repeat-x;
+	position:sticky;
+}
+
+.header__content{
+	padding:30px 0;
+	color: white;
+}
+
+.header__image{
+	width:100px;
+	height:100px;
+	object-fit: contain;
+	object-position: top;
+}
+
+.header__title{
+	width:173px;
+	padding:10px 15px;
+}
+
+.header__name{
+	font-weight: bold;
+	font-size: 25px;
+	line-height: 80%;
+}
+
+.header__description{
+	font-size:13px;
+}
+
+.header__phone{
+	font-size:25px;
+	margin-top: 6px;
+}
+
+.menu{
+	background-color: #1a1b20;
+	padding:20px;
+	font-size:25px;
+	position:sticky;
+}
+
+.menu__navbar{
+	text-align: center;
+	color: #aeaeae;
+}
+
+.menu__navbar li:after{
+	content: ' | ';
+	white-space: pre;
+	display: inline;
+}
+
+.menu__navbar li:last-child:after{
+	content: "   ";
+	display: inline;
+}
+
+.menu__item a:hover{
+	text-decoration: underline;
+}
+
+.menu__item-red{
+	color: #682340
+}
+
+.menu__item-purple{
+	color: #4b2e88;
+}
+
+
+.menu__item-lime{
+	color: #0af417;
+}
+
+.menu__item-yellow{
+	color: #b9c40e;
+}
+
+.menu__item-orange{
+	color: #ea8009;
+}
+
+.carousel-inner{
+	height:400px;
+}
+
+.carousel-item{
+	height:100%;
+}
+
+.slider img{
+	object-fit: cover; 
+	margin: 0 auto;
+	width: 100%; 
+}
+
+.content{
+	margin-top: 30px;
+	margin-bottom: 200px;
+}
+
+.footer{
+	color:white;
+}
+
+.news{
+	background-color: black;
+	color:white;
+	padding:20px;
+}
+
+.news-item{
+	margin: 10px 0;
+}
+
+.news-item__date{
+	font-style: italic;
+}
+
+.news__news-archive{
+	text-decoration: underline;
+}
+
+.about{
+	padding:20px 0px 20px 60px;
+}
+
+.about__section{
+	margin:35px 0;
+}
+
+.footer{
+	padding:50px 0;
+	background: url("./img/footer_background.jpg");
+	background-size: cover;
+
+	margin-top:auto; 
+}
+
+.footer__menu-navbar a{
+	text-decoration: underline;
+}
+
+.authors__image{
+	object-fit: contain;
+	object-position: top;
+}
