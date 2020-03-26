@@ -92,6 +92,10 @@ body{
 	text-decoration: underline;
 }
 
+.menu__item_active{
+	text-decoration: underline;
+}
+
 .menu__item-red{
 	color: #682340
 }
@@ -177,4 +181,6 @@ body{
 .authors__image{
 	object-fit: contain;
 	object-position: top;
+	width:100px;
+	height:100px;
 }

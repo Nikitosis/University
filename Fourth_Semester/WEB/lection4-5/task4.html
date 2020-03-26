@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul{
+			margin-bottom: 20px;
+		}
+		.first{
+			list-style-type: none;
+		}
+		.second{
+			list-style-type: none;
+			margin-left:-15px;
+		}
+		.second li:before { 
+		    background: "Δ";
+		    content: "Δ";
+		    color: yellow; 
+		    display: inline-block;
+		    transform:rotate(90deg) scaleY(0.7);
+		}
+		.third{
+			list-style-type: decimal;
+		}
+		.fourth{
+			list-style-type: lower-greek;
+		}
+	</style>
+</head>
+<body>
+	<ul class="first">
+		<li>Красный</li>
+		<li>Желтый</li>
+		<li>Зеленый</li>
+		<li>Синий</li>
+	</ul>
+
+	<ul class="second">
+		<li>Красный</li>
+		<li>Желтый</li>
+		<li>Зеленый</li>
+		<li>Синий</li>
+	</ul>
+
+	<ul class="third">
+		<li>Иванов</li>
+		<li>Петров</li>
+		<li>Сидров</li>
+		<li>Николаев</li>
+	</ul>
+
+	<ul class="fourth">
+		<li>Иванов</li>
+		<li>Петров</li>
+		<li>Сидров</li>
+		<li>Николаев</li>
+	</ul>
+	
+
+</body>
+</html>

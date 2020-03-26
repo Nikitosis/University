@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.1.js"
+	  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	  crossorigin="anonymous"></script>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="wrapper">
+
+		<div class="header">
+			<div class="container header__content d-flex justify-content-between">
+				<a class="d-block d-flex header__logo" href="#home-page">
+					<img class="header__image" src="./img/logo.png" alt="logo"></img>
+					<div class="header__title">
+						<h1 class="header__name">TikTok Company</h1>
+						<div class="header__description">Wanna have fun?</div>
+					</div>
+				</a>
+				<div class="header__contacts d-flex flex-column justify-content-center">
+					<div class="header__phone">+7(499) 777-77-77</div>
+					<div class="header__phone">+7(499) 777-77-77</div>
+				</div>
+			</div>
+		</div>
+
+		<nav class="menu navbar navbar-expand-lg d-flex justify-content-center">
+				<ul class="menu__navbar navbar-nav">
+					<li class="menu__item menu__item-orange nav-item">
+						 <a href="home.html">Home</a>
+					</li>
+					<li class="menu__item menu__item-red nav-item">
+						  <a href="premium.html">Buy premium</a>
+					</li>
+					<li class="menu__item menu__item-purple nav-item">
+						  <a href="video.html" class="menu__item_active">Upload video</a>
+					</li>
+					<li class="menu__item menu__item-yellow nav-item">
+						  <a href="contacts.html">Contacts</a>
+					</li>
+					<li class="menu__item menu__item-lime nav-item">
+						  <a href="donate.html">Donate</a>
+					</li>
+				</ul>
+		</nav>
+
+		<div class="slider carousel slide carousel-fade" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img class="d-block" src="./img/slider1.jpg" alt="First slide">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Bluur background</h5>
+						<p>It is soo blurry</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img class="d-block img-fluid" src="./img/slider2.jpg" alt="Second slide">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>This one is cool</h5>
+						<p>High quality</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img class="d-block img-fluid" src="./img/slider3.jpg" alt="Third slide">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>Image from google</h5>
+						<p>I can download images</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content container">
+			<div class="about">
+				<h2 class="about__header">Upload video</h2>
+				<section class="about__section">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum expedita voluptatum iusto laborum dolor quos eos quis iste eum sapiente repudiandae possimus quasi perferendis maxime, ratione, labore magni incidunt voluptate. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam pariatur obcaecati odio quisquam quam tempore quo numquam tenetur sapiente eveniet.</section>
+				<section class="about__section">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum expedita voluptatum iusto laborum dolor quos eos quis iste eum sapiente repudiandae possimus quasi perferendis maxime, ratione, labore magni incidunt voluptate. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui veritatis reprehenderit doloremque ad, assumenda deleniti iste voluptate ea officia itaque.</section>
+				<section class="about__section">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum expedita voluptatum iusto laborum dolor quos eos quis iste eum sapiente repudiandae possimus quasi perferendis maxime, ratione, labore magni incidunt voluptate.</section>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="contacts col-md-4">
+						<p class="contacts__copyright">© 2012–2020 ЗАО «Тикток»</p>
+						<p class="contacts__email">ticktok@name.ru</p>
+					</div>
+					<div class="footer__menu col-md-5">
+						<ul class="footer__menu-navbar navbar-nav">
+							<li><a href="home.html">Home</a></li>
+							<li><a href="premium.html">Buy premium</a></li>
+							<li><a href="video.html">Upload video</a></li>
+							<li><a href="contacts.html">Contacts</a></li>
+							<li><a href="donate.html">Donate</a></li>
+						</ul>
+					</div>
+					<div class="authors col-md-3 row">
+						<img class="authors__image col-md-4" src="./img/logo.png" alt="logo"></img>
+						<div class="authors__title col-md-8">
+							<p class="authors__content">Site development - company "Тикток"</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Carousel -->
+<script language="JavaScript" type="text/javascript">
+  $(document).ready(function(){
+    $('.carousel').carousel({
+      interval: 2000
+    })
+  });    
+</script> 
+</body>
+</html>
