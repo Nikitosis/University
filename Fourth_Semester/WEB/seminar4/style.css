@@ -1,12 +1,38 @@
+*{
+	font-size: 2vh;
+}
+
 .wrapper{
 	background-color: grey;
 }
 
 .page{
-	padding:10px;
+	padding:1%;
 	background-image: url(./img/background.jfif);
 	background-size: cover;
 	background-position: center;
+	width: 40%;
+}
+
+.first-page{
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.second-page{
+	position: absolute;
+	left:33%;
+	top:33%;
+	z-index: 2;
+}
+
+.third-page{
+	position: absolute;
+	left:60%;
+	top:0;
+	z-index: 1;
 }
 
 .post-image{
@@ -21,17 +47,17 @@
 }
 
 .post-image__image_big{
-	height:400px;
+	height:20vh;
 	width:100%;
 }
 
 .post-image__image_medium{
-	height:200px;
+	height:10vh;
 	width:100%;
 }
 
 .post-image__image_small{
-	height:100px;
+	height:8vh;
 	width:100%;
 }
 
@@ -41,7 +67,7 @@
 }
 
 .menu{
-	padding:2px 40px 2px 0;
+	padding:1vh 3vw 1vh 0;
 }
 
 .menu_blue{
@@ -72,9 +98,9 @@
 
 .menu__item{
 	display: inline;
-	height:40px;
-	line-height: 40px;
-	margin-right: 4px;
+	height:7vh;
+	line-height: 7vh;
+	margin-right: 1vw;
 	border-radius: 5px;
 	padding:0;
 }
@@ -98,12 +124,14 @@
 }
 
 .text-body{
-	padding:10px;
+	padding:0.01vh 0.5vw;
 }
 
 .text-body__image{
+	height:15vh;
+	width:60%;
+
 	float: left;
-	margin: 3px;
 	border:3px solid purple;
 }
 
