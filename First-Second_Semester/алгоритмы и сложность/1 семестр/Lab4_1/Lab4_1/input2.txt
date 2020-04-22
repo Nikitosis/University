@@ -1,0 +1,6 @@
+abaaabbbababaaab
+5
+*b b*
+*a aa*
+* "" stop
+"" *

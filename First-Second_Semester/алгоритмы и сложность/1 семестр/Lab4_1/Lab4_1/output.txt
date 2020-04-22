@@ -1,0 +1,22 @@
+Enter your word:
+Enter amount of rules:
+Proceeding algorithm:
+abaaabbbababaaab --> *abaaabbbababaaab
+*abaaabbbababaaab --> aa*baaabbbababaaab
+aa*baaabbbababaaab --> aab*aaabbbababaaab
+aab*aaabbbababaaab --> aabaa*aabbbababaaab
+aabaa*aabbbababaaab --> aabaaaa*abbbababaaab
+aabaaaa*abbbababaaab --> aabaaaaaa*bbbababaaab
+aabaaaaaa*bbbababaaab --> aabaaaaaab*bbababaaab
+aabaaaaaab*bbababaaab --> aabaaaaaabb*bababaaab
+aabaaaaaabb*bababaaab --> aabaaaaaabbb*ababaaab
+aabaaaaaabbb*ababaaab --> aabaaaaaabbbaa*babaaab
+aabaaaaaabbbaa*babaaab --> aabaaaaaabbbaab*abaaab
+aabaaaaaabbbaab*abaaab --> aabaaaaaabbbaabaa*baaab
+aabaaaaaabbbaabaa*baaab --> aabaaaaaabbbaabaab*aaab
+aabaaaaaabbbaabaab*aaab --> aabaaaaaabbbaabaabaa*aab
+aabaaaaaabbbaabaabaa*aab --> aabaaaaaabbbaabaabaaaa*ab
+aabaaaaaabbbaabaabaaaa*ab --> aabaaaaaabbbaabaabaaaaaa*b
+aabaaaaaabbbaabaabaaaaaa*b --> aabaaaaaabbbaabaabaaaaaab*
+aabaaaaaabbbaabaabaaaaaab* --> aabaaaaaabbbaabaabaaaaaab
+Algorithm ended!

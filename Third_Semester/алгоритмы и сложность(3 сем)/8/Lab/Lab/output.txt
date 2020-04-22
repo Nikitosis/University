@@ -1,0 +1,15 @@
+Naive search
+Position: 1653
+Time: 853700 nanosec
+Boer-Mur search
+Position: 1653
+Time: 266500 nanosec
+Horspul search
+Position: 1653
+Time: 207400 nanosec
+KMP search
+Position: 1653
+Time: 46146900 nanosec
+Robin-Karp search
+Position: 1653
+Time: 71192300 nanosec

@@ -1,0 +1,7 @@
+Proceeding algorithm:
+101 --> 0|01
+0
+1
+2
+3
+Algorithm ended!
