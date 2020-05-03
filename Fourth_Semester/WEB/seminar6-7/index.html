@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="logic.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="wrapper">
+		<form id="form" onsubmit="submitForm()">
+			<table>
+				<tr><th>Замовлення на придбання товару</th></tr>
+				<tr>
+					<td>
+						<label for="books">Назва товару</label>
+						<br>
+						<select id="books" onchange="calculatePrice()">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="amount">Кількість:</label>
+						<input type="number" id="amount"  value="0" onchange="calculatePrice()"/>
+						<label for="price">Вартість замовлення книг:</label>
+						<input type="number" id="price"  value="0" disabled/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Спосіб доставки замовлення:</label>
+						<br>
+						<label>
+							<input type="radio" value="postDelivery" name="delivery" checked>
+							Поштою
+						</label>
+						<br>
+						<label>
+							<input type="radio" value="homeDelivery" name="delivery">
+							Доставка до дому
+						</label>
+						<br>
+						<label>
+							<input type="checkbox" value="holidayDelivery" name="holiday-delivery">
+							У святковій упаковці
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label>
+							Загальна вартість замовлення
+							<input type="number" id="total-price" value="0" disabled>
+						</label>
+						<button type='button' id="calculate-current" onclick="calculateDelivery()">Підрахувати</button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Дані замовника</label>
+						<br>
+						<label>
+							Імя
+							<input type="text" id="name">
+						</label>
+						<label>
+							Адреса
+							<input type="text" id="address">
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<button id="resetBtn" type='button' onclick="reset()">Відновити початкові значення полів</button>
+						<button  type="button" onclick="submitForm()">Відправити дані</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+	<br>
+	<br>
+	<table id="orders">
+		<tr>
+			<th>Імя замовника</th>
+			<th>Адреса замовника</th>
+			<th>Книга</th>
+			<th>Кількість</th>
+			<th>Доставка</th>
+			<th>Вартість</th>
+		</tr>
+	</table>
+	
+</body>
+</html>
