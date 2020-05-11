@@ -1,0 +1,16 @@
+.finished{
+    background-color: lightgreen;
+}
+.finished:hover{
+    background-color: forestgreen;
+}
+.notFinished{
+    background-color: transparent;
+}
+.notFinished:hover{
+    background-color: lightgray;
+}
+
+.clickable{
+    cursor:pointer;
+}
