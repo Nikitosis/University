@@ -1,0 +1,24 @@
+*{
+	font-family: "Calibri"
+}
+.red{
+	color:red;
+}
+.bold{
+	font-weight: bold;
+}
+.italic{
+	font-style: italic;
+}
+.yellow{
+	background-color: yellow;
+}
+.big{
+	font-size: 1.3em;
+}
+.underline{
+	text-decoration: underline;
+}
+.cross{
+	text-decoration: line-through;
+}

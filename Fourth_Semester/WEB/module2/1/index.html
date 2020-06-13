@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="script.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>User registration form</h1>
+	<form name="Form" action="#" onsubmit="return validate()">
+		<p>Name *: <input type="text" size=65 name="Name"> </p><br>
+		<p>Age: <input type="text" size=65 name="Age"> </p><br>
+		<p>Salary: <input type="text" size=65 name="Salary"> </p><br>
+		<p>Birthday: <input type="text" size=65 name="Birthday"> </p><br>
+
+		<p>Password *: <input type="password" size=65 name="Password"> </p><br>
+		<p>Confirm password *: <input type="password" size=65 name="ConfirmPassword"> </p><br>
+
+		<p><input type="submit" value="send" name="Submit"></p>
+	</form>
+	<p id="error"></p>
+	<p id="success"></p>
+</body>
+</html>
