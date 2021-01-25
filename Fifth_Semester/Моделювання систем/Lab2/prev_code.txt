@@ -1,0 +1,70 @@
+#%%
+from itertools import chain
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import pandas as pd
+#%%
+def Z(A_iter, A_pseudo):
+  return np.eye(len(A_pseudo)) - A_pseudo.dot(A_iter)
+#%%
+def grevil(a):
+  # is_swap = 0
+  # if len(x) > len(x[0]):
+  #   is_swap = 1
+  #   a = np.transpose(a)
+
+  current_vector = np.transpose(a[0])
+
+  current_vector_scalar =  np.transpose(current_vector).dot(current_vector)
+
+  if current_vector_scalar == 0:
+    A_pseudo = current_vector
+  else:
+    A_pseudo = current_vector / current_vector_scalar
+
+  A_iter = np.transpose(current_vector)
+  for i in range(1, len(a)):
+      current_vector = np.transpose(a[i])
+      Z_A = Z(A_iter, A_pseudo)
+      A_iter = np.vstack((A_iter, a[i]))
+      denom_Z = a[i].dot(Z_A).dot(current_vector)
+
+      if denom_Z > 0.000001:
+          print(Z_A.dot(current_vector).dot(a[i]).shape)
+          A_pseudo = np.column_stack((
+              (A_pseudo - (Z_A.dot(current_vector).dot(a[i]) * A_pseudo) / denom_Z),
+              (Z_A.dot(current_vector)) / denom_Z))
+      else:
+          R_A = A_pseudo.dot(np.transpose(A_pseudo))
+          denom_R = 1 + a[i].dot(R_A).dot(current_vector)
+          A_pseudo = np.column_stack((
+              (A_pseudo - (R_A.dot(current_vector).dot(a[i]) * A_pseudo) / denom_R),
+              ((R_A.dot(current_vector)) / denom_R)
+          ))
+  # if(is_swap==1):
+  #     A_pseudo = A_pseudo.T
+  return A_pseudo
+
+#%%
+kk1 = [1, 2, 3]
+
+kk2 = [[4, 5, 6],
+       [6, 7, 8],
+       [3, 4, 6]]
+res = np.column_stack((kk1, kk2))
+print(res)
+X = np.array(mpimg.imread("x2.bmp"))
+
+x = np.vstack((X, np.ones(len(X[0]))))
+
+Y = mpimg.imread("y2.bmp")
+
+X_pseudo = grevil(X)
+
+A = Y.dot(X_pseudo)
+
+is_correct = A.dot(X)
+
+plt.subplot().imshow(is_correct, cmap = 'gray')
+
