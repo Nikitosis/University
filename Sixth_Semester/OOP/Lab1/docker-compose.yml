@@ -1,0 +1,11 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:10
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=passsword
+      - POSTGRES_DB=payments
+    container_name: postgres_payments
+    ports:
+      - "5432:5432"
