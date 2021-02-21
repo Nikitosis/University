@@ -29,4 +29,43 @@ public class ConnectionFactory {
             throw new RuntimeException(e);
         }
     }
+
+    public static void beginTransaction(Connection connection, int isolationLevel) {
+        try {
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(isolationLevel);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void commitTransaction(Connection connection) {
+        try {
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void rollbackTransaction(Connection connection) {
+        try {
+            connection.rollback();
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void close(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }

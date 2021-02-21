@@ -12,15 +12,13 @@ import java.util.Optional;
 
 public class UserRepository {
     public static UserRepository INSTANCE = new UserRepository();
-    private Connection connection;
 
-    private UserRepository() {
-        connection = ConnectionFactory.getConnection();
-    }
+    private UserRepository() {}
 
     public Optional<User> findById(Long id) {
         String command = "SELECT * FROM users WHERE id=?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(command)) {
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -37,7 +35,8 @@ public class UserRepository {
 
     public User create(User user) {
         String command = "INSERT INTO users (first_name, last_name) VALUES (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getLastName());
 

@@ -13,7 +13,8 @@ public class UserService {
     }
 
     public User getById(Long id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(String.format("Can't find user by id=%d", id)));
     }
 
     public User create(UserCreateRequest request) {

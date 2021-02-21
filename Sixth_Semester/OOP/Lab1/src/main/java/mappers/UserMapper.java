@@ -9,6 +9,8 @@ import java.sql.SQLException;
 public class UserMapper {
     public static UserMapper INSTANCE = new UserMapper();
 
+    private UserMapper() {}
+
     public User resultSetToEntity(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setId(resultSet.getLong("id"));
