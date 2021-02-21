@@ -1,4 +1,4 @@
-package dao;
+package entities.dao;
 
 public class CreditCard {
     private Long id;

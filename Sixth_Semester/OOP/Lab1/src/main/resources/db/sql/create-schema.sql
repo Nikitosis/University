@@ -1,7 +1,7 @@
 CREATE TABLE users (
     id          bigserial   primary key,
     first_name  varchar(128)    not null,
-    last_name   varchar(128)    not null,
+    last_name   varchar(128)    not null
 );
 
 CREATE TABLE bank_account (

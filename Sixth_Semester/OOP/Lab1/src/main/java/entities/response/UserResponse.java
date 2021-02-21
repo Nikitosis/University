@@ -1,12 +1,9 @@
-package dao;
+package entities.response;
 
-import java.util.List;
-
-public class User {
+public class UserResponse {
     private Long id;
     private String firstName;
     private String lastName;
-    private List<CreditCard> cards;
 
     public Long getId() {
         return id;
@@ -30,13 +27,5 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<CreditCard> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<CreditCard> cards) {
-        this.cards = cards;
     }
 }

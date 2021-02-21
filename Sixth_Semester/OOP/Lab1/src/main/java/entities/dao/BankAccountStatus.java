@@ -1,4 +1,4 @@
-package dao;
+package entities.dao;
 
 public enum BankAccountStatus {
     ACTIVE,

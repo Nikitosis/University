@@ -1,6 +1,7 @@
 package service;
 
-import dao.User;
+import entities.dao.User;
+import entities.request.UserCreateRequest;
 import repository.UserRepository;
 
 public class UserService {
@@ -13,5 +14,13 @@ public class UserService {
 
     public User getById(Long id) {
         return userRepository.findById(id).get();
+    }
+
+    public User create(UserCreateRequest request) {
+        User user = new User();
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+
+        return userRepository.create(user);
     }
 }
