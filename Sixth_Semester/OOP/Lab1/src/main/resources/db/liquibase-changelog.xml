@@ -9,4 +9,9 @@
                  relativeToChangelogFile="true" splitStatements="true"/>
     </changeSet>
 
+    <changeSet author="Nikitosis" id="changelog-0.1" context="core-schema">
+        <sqlFile path="sql/add-password.sql"
+                 relativeToChangelogFile="true" splitStatements="true"/>
+    </changeSet>
+
 </databaseChangeLog>

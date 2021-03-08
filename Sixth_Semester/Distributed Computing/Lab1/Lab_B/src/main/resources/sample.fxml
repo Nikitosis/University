@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="411.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lab_b.Controller">
+   <children>
+      <ProgressBar id="progressBar" fx:id="progressBar" layoutX="128.0" layoutY="191.0" prefHeight="18.0" prefWidth="366.0" progress="0.0" />
+      <Text fx:id="positionText" layoutX="136.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Text fx:id="thread1Priority" layoutX="59.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority: LOW" />
+      <Text fx:id="thread2Priority" layoutX="413.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority: LOW" />
+      <Button fx:id="exitButton" layoutX="533.0" layoutY="14.0" mnemonicParsing="false" onAction="#exitApp" text="Exit" />
+      <Button fx:id="start1" layoutX="59.0" layoutY="335.0" mnemonicParsing="false" onAction="#startFirst" prefHeight="26.0" prefWidth="113.0" text="Start1" />
+      <Button fx:id="start2" layoutX="413.0" layoutY="335.0" mnemonicParsing="false" onAction="#startSecond" prefHeight="26.0" prefWidth="113.0" text="Start2" />
+      <Button fx:id="stop1" layoutX="59.0" layoutY="371.0" mnemonicParsing="false" onAction="#stopFirst" prefHeight="26.0" prefWidth="113.0" text="Stop1" />
+      <Button fx:id="stop2" layoutX="413.0" layoutY="371.0" mnemonicParsing="false" onAction="#stopSecond" prefHeight="26.0" prefWidth="113.0" text="Stop2" />
+      <Text fx:id="semaphoreState" layoutX="143.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semaphore state" />
+   </children>
+</AnchorPane>

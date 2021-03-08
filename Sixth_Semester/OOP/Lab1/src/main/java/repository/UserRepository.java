@@ -34,11 +34,12 @@ public class UserRepository {
     }
 
     public User create(User user) {
-        String command = "INSERT INTO users (first_name, last_name) VALUES (?, ?)";
+        String command = "INSERT INTO users (first_name, last_name, password) VALUES (?, ?, ?)";
         try (Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getPassword());
 
             preparedStatement.executeUpdate();
 

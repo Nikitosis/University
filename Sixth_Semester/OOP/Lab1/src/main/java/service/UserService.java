@@ -3,6 +3,7 @@ package service;
 import entities.dao.User;
 import entities.request.UserCreateRequest;
 import repository.UserRepository;
+import utils.Encryptor;
 
 public class UserService {
     public static UserService INSTANCE = new UserService();
@@ -21,6 +22,7 @@ public class UserService {
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+        user.setPassword(Encryptor.encode(request.getPassword()));
 
         return userRepository.create(user);
     }

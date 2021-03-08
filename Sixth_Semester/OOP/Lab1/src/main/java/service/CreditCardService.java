@@ -4,6 +4,7 @@ import entities.dao.BankAccount;
 import entities.dao.BankAccountStatus;
 import entities.dao.CreditCard;
 import entities.dao.User;
+import entities.request.CreditCardBlockRequest;
 import entities.request.CreditCardCreateRequest;
 import entities.request.CreditCardTransferRequest;
 import repository.BankAccountRepository;
@@ -72,5 +73,25 @@ public class CreditCardService {
         BankAccount bankAccountTo = bankAccountService.getByCardId(request.getCardToId());
 
         bankAccountService.transfer(bankAccountFrom.getId(), bankAccountTo.getId(), request.getAmount());
+    }
+
+    public void block(Long cardId) {
+        CreditCard card = getById(cardId);
+        BankAccount bankAccount = bankAccountService.getByCardId(card.getId());
+
+        bankAccountService.block(bankAccount);
+    }
+
+    public void unblock(Long cardId) {
+        CreditCard card = getById(cardId);
+        BankAccount bankAccount = bankAccountService.getByCardId(card.getId());
+
+        bankAccountService.unblock(bankAccount);
+    }
+
+    public void topUp(Long cardId, BigDecimal amount) {
+        BankAccount bankAccount = bankAccountService.getByCardId(cardId);
+
+        bankAccountService.topUp(bankAccount.getId(), amount);
     }
 }

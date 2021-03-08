@@ -25,6 +25,40 @@ public class BankAccountService {
                 .orElseThrow(() -> new RuntimeException(String.format("Can't find BankAccount by card id=%d", cardId)));
     }
 
+    public BankAccount block(BankAccount bankAccount) {
+        bankAccount.setStatus(BankAccountStatus.BLOCKED);
+        return bankAccountRepository.update(bankAccount);
+    }
+
+    public BankAccount unblock(BankAccount bankAccount) {
+        bankAccount.setStatus(BankAccountStatus.ACTIVE);
+        return bankAccountRepository.update(bankAccount);
+    }
+
+    public void topUp(Long bankAccountId, BigDecimal amount) {
+        Connection connection = ConnectionFactory.getConnection();
+        try {
+            ConnectionFactory.beginTransaction(connection, Connection.TRANSACTION_REPEATABLE_READ);
+            BankAccount bankAccount = bankAccountRepository.findById(bankAccountId, connection).get();
+
+            if(!bankAccount.getStatus().equals(BankAccountStatus.ACTIVE)) {
+                throw new RuntimeException("Bank account from status doesn't allow top up");
+            }
+
+            bankAccount.setBalance(bankAccount.getBalance().add(amount));
+
+            bankAccountRepository.update(bankAccount, connection);
+
+            ConnectionFactory.commitTransaction(connection);
+
+        } catch (Exception e) {
+            ConnectionFactory.rollbackTransaction(connection);
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionFactory.close(connection);
+        }
+    }
+
     public void transfer(Long bankAccountFromId, Long bankAccountToId, BigDecimal amount) {
         Connection connection = ConnectionFactory.getConnection();
         try {
