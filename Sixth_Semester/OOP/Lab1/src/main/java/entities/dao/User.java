@@ -9,6 +9,7 @@ public class User {
     private List<CreditCard> cards;
     private String password;
     private String username;
+    private List<UserRole> roles;
 
     public Long getId() {
         return id;
@@ -56,5 +57,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 }

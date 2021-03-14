@@ -1,83 +1,80 @@
 package repository;
 
-import entities.dao.User;
+import entities.dao.CreditCard;
+import entities.dao.UserRole;
 import mappers.UserMapper;
+import mappers.UserRoleMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-public class UserRepository {
-    public static UserRepository INSTANCE = new UserRepository();
+public class UserRoleRepository {
+    public static UserRoleRepository INSTANCE = new UserRoleRepository();
 
-    private UserRepository() {}
+    private UserRoleRepository() {}
 
-    public Optional<User> findById(Long id) {
-        String command = "SELECT * FROM users WHERE id=?";
+    public Optional<UserRole> findByName(String name) {
+        String command = "SELECT * FROM user_role WHERE name=?";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(!resultSet.next()) {
+                return Optional.empty();
+            }
+
+            return Optional.of(UserRoleMapper.INSTANCE.resultSetToEntity(resultSet));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<UserRole> findByUserId(Long id) {
+        String command = "SELECT r.* FROM users_user_role uur LEFT JOIN user_role r " +
+                "ON uur.user_role_id = r.id " +
+                "WHERE uur.user_id=?";
         try (Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if(!resultSet.next()) {
-                return Optional.empty();
+            List<UserRole> roles = new ArrayList<>();
+            while(resultSet.next()) {
+                roles.add(UserRoleMapper.INSTANCE.resultSetToEntity(resultSet));
             }
 
-            return Optional.of(UserMapper.INSTANCE.resultSetToEntity(resultSet));
+            return roles;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
-    public Optional<User> findByUsername(String username) {
-        String command = "SELECT * FROM users WHERE username=?";
+    public void addRole(Long userId, Integer roleId) {
         try (Connection connection = ConnectionFactory.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(command);
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if(!resultSet.next()) {
-                return Optional.empty();
-            }
-
-            return Optional.of(UserMapper.INSTANCE.resultSetToEntity(resultSet));
+            addRole(userId, roleId, connection);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
-    public User create(User user) {
-        try (Connection connection = ConnectionFactory.getConnection()) {
-            return create(user, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
-
-    public User create(User user, Connection connection) {
-        String command = "INSERT INTO users (first_name, last_name, password, username) VALUES (?, ?, ?, ?)";
+    public void addRole(Long userId, Integer roleId, Connection connection) {
+        String command = "INSERT INTO users_user_role (user_id, user_role_id) VALUES (?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getUsername());
+            preparedStatement.setLong(1, userId);
+            preparedStatement.setInt(2, roleId);
 
             preparedStatement.executeUpdate();
-
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-
-            if (generatedKeys.next()) {
-                user.setId(generatedKeys.getLong(1));
-            }
-
-            return user;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

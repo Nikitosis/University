@@ -14,4 +14,14 @@
                  relativeToChangelogFile="true" splitStatements="true"/>
     </changeSet>
 
+    <changeSet author="Nikitosis" id="changelog-0.2" context="core-schema">
+        <sqlFile path="sql/add-user-role.sql"
+                 relativeToChangelogFile="true" splitStatements="true"/>
+    </changeSet>
+
+    <changeSet author="Nikitosis" id="changelog-0.3" context="core-schema">
+        <sqlFile path="sql/insert-roles.sql"
+                 relativeToChangelogFile="true" splitStatements="true"/>
+    </changeSet>
+
 </databaseChangeLog>

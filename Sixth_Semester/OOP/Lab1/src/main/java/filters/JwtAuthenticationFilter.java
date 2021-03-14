@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter implements Filter {
 
             filterChain.doFilter(servletRequest, servletResponse);
 
-        } catch (final Exception e) {
+        } catch (AccessDeniedException e) {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
             httpResponse.setContentLength(0);
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

@@ -1,6 +1,7 @@
 package service;
 
 import entities.dao.User;
+import entities.dao.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtBuilder;
@@ -24,7 +25,8 @@ import java.util.stream.Collectors;
 public class AuthorizationService {
     public static AuthorizationService INSTANCE = new AuthorizationService();
 
-    private static UserService userService = UserService.INSTANCE;
+    private UserService userService = UserService.INSTANCE;
+    private UserRoleService userRoleService = UserRoleService.INSTANCE;
 
     private static String signature = ApplicationProperties.get("signature");
     private static Long ttlMillis = Long.valueOf(ApplicationProperties.get("ttlMillis"));
@@ -41,11 +43,15 @@ public class AuthorizationService {
         return createJWT(user);
     }
 
-    public static String createJWT(User user) {
+    public String createJWT(User user) {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
 
-        String authorities = "USER";
+        List<UserRole> userRoles = userRoleService.getUserRoles(user.getId());
+
+        String authorities = userRoles.stream()
+                .map(UserRole::getName)
+                .collect(Collectors.joining(";"));
 
         JwtBuilder builder = Jwts.builder()
                 .setIssuedAt(now)
