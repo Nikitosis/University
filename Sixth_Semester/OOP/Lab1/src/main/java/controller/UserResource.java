@@ -1,5 +1,6 @@
 package controller;
 
+import configuration.SecurityManager;
 import entities.dao.User;
 import entities.request.UserCreateRequest;
 import entities.response.UserResponse;
@@ -22,7 +23,7 @@ public class UserResource extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter("id"));
+        Long id = SecurityManager.getAuthorizedUserId();
         User user = userService.getById(id);
 
         UserResponse userResponse = UserMapper.INSTANCE.toUserResponse(user);

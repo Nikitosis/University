@@ -33,13 +33,32 @@ public class UserRepository {
         }
     }
 
+    public Optional<User> findByUsername(String username) {
+        String command = "SELECT * FROM users WHERE username=?";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(!resultSet.next()) {
+                return Optional.empty();
+            }
+
+            return Optional.of(UserMapper.INSTANCE.resultSetToEntity(resultSet));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     public User create(User user) {
-        String command = "INSERT INTO users (first_name, last_name, password) VALUES (?, ?, ?)";
+        String command = "INSERT INTO users (first_name, last_name, password, username) VALUES (?, ?, ?, ?)";
         try (Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(command, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getUsername());
 
             preparedStatement.executeUpdate();
 
