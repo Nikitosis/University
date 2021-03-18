@@ -1,0 +1,16 @@
+.content {
+    height: 100%;
+    width: 100%;
+    background-color: #E0E0E0;
+    padding:0
+}
+
+.content__card {
+    width: 50%;
+    margin-top: 20px
+}
+
+.content__card:after {
+    content: "";
+    display: block;
+}
