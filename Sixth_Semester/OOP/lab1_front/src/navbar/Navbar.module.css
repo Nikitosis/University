@@ -8,3 +8,8 @@
 .nav_link {
     color: #E4E4E4 !important;
 }
+
+.nav_link__active{
+    color: black !important;
+}
+
