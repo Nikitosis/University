@@ -14,6 +14,16 @@ class CardsAPI {
             card
         )
     }
+
+    topUp(cardId, amount) {
+        debugger;
+        return axios.post(`${URL}/credit-card/top-up`,
+            {
+                cardId,
+                amount
+            }
+        )
+    }
 }
 
 export default new CardsAPI();

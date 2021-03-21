@@ -1,9 +1,16 @@
 import React from "react";
 import styles from "./CardsPage.module.css";
 import CardItem from "./card-item/CardItem";
-import {closeCreateCardModal, createCard, fetchCards, openCreateCardModal} from "../../redux/reducers/cardsReducer";
+import {
+    closeCreateCardModal,
+    createCard,
+    fetchCards,
+    openCreateCardModal,
+    openTopUpModal
+} from "../../redux/reducers/cardsReducer";
 import {connect} from "react-redux";
 import CreateCardModal from "./CreateCardModal";
+import TopUpModal from "./TopUpModal";
 
 class CardsPage extends React.Component {
     componentDidMount() {
@@ -22,13 +29,14 @@ class CardsPage extends React.Component {
                     this.props.cards
                         .map((card) => (
                             <div className={`${styles.content__card}`}>
-                                <CardItem/>
+                                <CardItem onTopUpClick={(cardId) => this.props.openTopUpModal(cardId)} card={card}/>
                             </div>
                         ))
                 }
                 </div>
 
                 <CreateCardModal/>
+                <TopUpModal/>
             </div>
         )
     }
@@ -44,7 +52,8 @@ function mapDispatchToProps(dispatch){
     return{
         fetchCards:()=>dispatch(fetchCards()),
         createCard:()=>dispatch(createCard()),
-        openCreateCardModal:()=>dispatch(openCreateCardModal())
+        openCreateCardModal:()=>dispatch(openCreateCardModal()),
+        openTopUpModal:(cardId)=>dispatch(openTopUpModal(cardId))
     }
 }
 

@@ -3,6 +3,7 @@ package entities.response;
 public class CreditCardResponse {
     private Long id;
     private String name;
+    private BankAccountResponse bankAccount;
 
     public Long getId() {
         return id;
@@ -18,5 +19,13 @@ public class CreditCardResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BankAccountResponse getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccountResponse bankAccount) {
+        this.bankAccount = bankAccount;
     }
 }
