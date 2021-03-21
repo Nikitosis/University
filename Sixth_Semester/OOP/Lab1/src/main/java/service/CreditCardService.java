@@ -25,12 +25,12 @@ public class CreditCardService {
 
     private CreditCardService() {}
 
-    public CreditCard create(CreditCardCreateRequest request) {
+    public CreditCard create(Long userId, CreditCardCreateRequest request) {
         Connection connection = ConnectionFactory.getConnection();
         try {
             ConnectionFactory.beginTransaction(connection, Connection.TRANSACTION_READ_COMMITTED);
 
-            User user = userService.getById(request.getUserId());
+            User user = userService.getById(userId);
 
             BankAccount bankAccount = new BankAccount();
             bankAccount.setBalance(BigDecimal.ZERO);

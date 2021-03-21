@@ -1,5 +1,6 @@
 package controller;
 
+import configuration.SecurityManager;
 import entities.dao.CreditCard;
 import entities.request.CreditCardCreateRequest;
 import entities.response.CreditCardResponse;
@@ -22,8 +23,9 @@ public class CreditCardResource extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CreditCardCreateRequest request = RequestUtil.getRequestObject(req, CreditCardCreateRequest.class);
+        Long id = SecurityManager.getAuthorizedUserId();
 
-        CreditCard creditCard = creditCardService.create(request);
+        CreditCard creditCard = creditCardService.create(id, request);
 
         CreditCardResponse response = CreditCardMapper.INSTANCE.toResponse(creditCard);
 

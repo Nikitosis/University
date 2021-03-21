@@ -1,7 +1,6 @@
 .content {
-    height: 100%;
+    min-height: 100%;
     width: 100%;
-    background-color: #E0E0E0;
     padding:0
 }
 
@@ -13,4 +12,9 @@
 .content__card:after {
     content: "";
     display: block;
+}
+
+.button {
+    margin-top: 20px;
+    margin-left: 80%;
 }

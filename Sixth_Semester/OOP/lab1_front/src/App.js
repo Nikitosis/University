@@ -1,21 +1,32 @@
 import logo from './logo.svg';
 import React from "react";
-import Navbar from "./navbar/Navbar";
-import CardsPage from "./content/CardsPage";
+import Navbar from "./components/navbar/Navbar";
+import CardsPage from "./components/content/CardsPage";
 import styles from "./App.module.css";
 import {BrowserRouter, Route} from "react-router-dom";
+import LoginPage from "./components/authentication/LoginPage";
+import {connect} from "react-redux";
+import PrivateRoute from "./utils/PrivateRoute";
 
-const App = () => {
+const App = props => {
   return (
       <BrowserRouter>
         <div className="App container-fluid h-100 p-0">
             <Navbar/>
-            <div className={`p-0 min-vh-100`}>
-                <Route exact path={"/my-cards"} component={CardsPage}/>
+            <div className={`${styles.wrapper} p-0`}>
+                <PrivateRoute requiredRoles={["USER","ADMIN"]} exact path="/my-cards" component={CardsPage} userRoles={props.roles} isLogged={props.isLogged}/>
+                <PrivateRoute nonAuthorised={true} exact path="/login" component={LoginPage} userRoles={props.roles} isLogged={props.isLogged}/>
             </div>
         </div>
       </BrowserRouter>
   );
 }
 
-export default App;
+function mapStateToProps(state){
+    return{
+        roles:state.loginReducer.roles,
+        isLogged:state.loginReducer.isLogged,
+    }
+}
+
+export default connect(mapStateToProps)(App);

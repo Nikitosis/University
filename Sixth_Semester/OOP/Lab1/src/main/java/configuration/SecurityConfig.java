@@ -19,7 +19,7 @@ public class SecurityConfig {
 
     private static void init() {
         urlRequiredAuth.put("/credit-card/block", Map.ofEntries(
-                Map.entry(HttpMethod.POST, Collections.singletonList(AuthRole.USER)))
+                Map.entry(HttpMethod.POST, Arrays.asList(AuthRole.USER, AuthRole.ADMIN)))
         );
         urlRequiredAuth.put("/credit-card", Map.ofEntries(
                 Map.entry(HttpMethod.POST, Collections.singletonList(AuthRole.USER)),
@@ -35,6 +35,9 @@ public class SecurityConfig {
                 Map.entry(HttpMethod.POST, Collections.singletonList(AuthRole.ADMIN))
         ));
         urlRequiredAuth.put("/user", Map.ofEntries(
+                Map.entry(HttpMethod.GET, Arrays.asList(AuthRole.USER, AuthRole.ADMIN))
+        ));
+        urlRequiredAuth.put("/user/credit-card", Map.ofEntries(
                 Map.entry(HttpMethod.GET, Arrays.asList(AuthRole.USER, AuthRole.ADMIN))
         ));
     }
