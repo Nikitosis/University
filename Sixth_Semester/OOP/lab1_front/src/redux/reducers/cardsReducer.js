@@ -12,18 +12,31 @@ const TOP_UP_STARTED="TOP_UP_STARTED";
 const TOP_UP_SUCCESS="TOP_UP_SUCCESS";
 const TOP_UP_FAILURE="TOP_UP_FAILURE";
 
+const TRANSFER_STARTED="TRANSFER_STARTED";
+const TRANSFER_SUCCESS="TRANSFER_SUCCESS";
+const TRANSFER_FAILURE="TRANSFER_FAILURE";
+
+const BLOCK_CARD_STARTED="BLOCK_CARD_STARTED";
+const BLOCK_CARD_SUCCESS="BLOCK_CARD_SUCCESS";
+const BLOCK_CARD_FAILURE="BLOCK_CARD_FAILURE";
+
 const CLOSE_CREATE_CARD_MODAL="CLOSE_CREATE_CARD_MODAL";
 const OPEN_CREATE_CARD_MODAL="OPEN_CREATE_CARD_MODAL";
 
 const CLOSE_TOP_UP_MODAL="CLOSE_TOP_UP_MODAL";
 const OPEN_TOP_UP_MODAL="OPEN_TOP_UP_MODAL";
 
+const CLOSE_TRANSFER_MODAL="CLOSE_TRANSFER_MODAL";
+const OPEN_TRANSFER_MODAL="OPEN_TRANSFER_MODAL";
+
+
 const initialState={
     cards: [],
     loading: false,
     curCardId: null,
     isCreateCardModalOpened: false,
-    isTopUpModalOpened: false
+    isTopUpModalOpened: false,
+    isTransferModalOpened: false
 }
 
 export default function cardsReducer(state=initialState, action){
@@ -48,6 +61,18 @@ export default function cardsReducer(state=initialState, action){
             return {
                 ...state,
                 isTopUpModalOpened: false,
+                curCardId: null
+            }
+        case OPEN_TRANSFER_MODAL:
+            return {
+                ...state,
+                isTransferModalOpened: true,
+                curCardId: action.payload.curCardId
+            }
+        case CLOSE_TRANSFER_MODAL:
+            return {
+                ...state,
+                isTransferModalOpened: false,
                 curCardId: null
             }
         case FETCH_CARDS_STARTED:
@@ -124,19 +149,48 @@ export function topUpFailure() {
     return {type: TOP_UP_FAILURE}
 }
 
+export function closeTransferModal() {
+    return {type: CLOSE_TRANSFER_MODAL}
+}
+
+export function openTransferModal(curCardId) {
+    return {type: OPEN_TRANSFER_MODAL,payload:{curCardId}}
+}
+
+export function transferStarted() {
+    return {type: TRANSFER_STARTED}
+}
+
+export function transferSuccess() {
+    return {type: TRANSFER_SUCCESS}
+}
+
+export function transferFailure() {
+    return {type: TRANSFER_FAILURE}
+}
+
+export function blockCardStarted() {
+    return {type: BLOCK_CARD_STARTED}
+}
+
+export function blockCardSuccess() {
+    return {type: BLOCK_CARD_SUCCESS}
+}
+
+export function blockCardFailure() {
+    return {type: BLOCK_CARD_FAILURE}
+}
+
 export function fetchCards(){
     return (dispatch,getState)=>{
-        debugger;
         dispatch(fetchCardsStarted());
         CardsAPI.getMyCards()
             .then(res=> {
-                    debugger;
                     const cards=res.data;
                     dispatch(fetchCardsSuccess(cards));
                 }
             )
             .catch((e)=>{
-                debugger;
                 dispatch(fetchCardsFailure());
             })
     };
@@ -144,7 +198,6 @@ export function fetchCards(){
 
 export function createCard(card){
     return (dispatch,getState)=>{
-        debugger;
         dispatch(createCardStarted());
         CardsAPI.createCard(card)
             .then(res=> {
@@ -154,7 +207,6 @@ export function createCard(card){
                 }
             )
             .catch((e)=>{
-                debugger;
                 dispatch(createCardFailure());
             })
     };
@@ -162,7 +214,6 @@ export function createCard(card){
 
 export function topUpCard(cardId, amount){
     return (dispatch,getState)=>{
-        debugger;
         dispatch(topUpStarted());
         CardsAPI.topUp(cardId, amount)
             .then(res=> {
@@ -172,8 +223,38 @@ export function topUpCard(cardId, amount){
                 }
             )
             .catch((e)=>{
-                debugger;
                 dispatch(topUpFailure());
+            })
+    };
+}
+
+export function transfer(cardFromId, cardToId, amount){
+    return (dispatch,getState)=>{
+        dispatch(transferStarted());
+        CardsAPI.transfer(cardFromId, cardToId, amount)
+            .then(res=> {
+                    dispatch(transferSuccess());
+                    dispatch(fetchCards());
+                    dispatch(closeTransferModal())
+                }
+            )
+            .catch((e)=>{
+                dispatch(transferFailure());
+            })
+    };
+}
+
+export function blockCard(cardId){
+    return (dispatch,getState)=>{
+        dispatch(blockCardStarted());
+        CardsAPI.blockCard(cardId)
+            .then(res=> {
+                    dispatch(blockCardSuccess());
+                    dispatch(fetchCards());
+                }
+            )
+            .catch((e)=>{
+                dispatch(blockCardFailure());
             })
     };
 }

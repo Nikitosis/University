@@ -48,7 +48,6 @@ class CreateCardModal extends React.Component{
 
     render() {
         let nameValidationStyle=this.props.nameErrorMessage==null ? "" : "is-invalid";
-        debugger;
         return (
             <Modal show={this.props.show} onHide={this.handleClose}>
                 <Modal.Header closeButton>

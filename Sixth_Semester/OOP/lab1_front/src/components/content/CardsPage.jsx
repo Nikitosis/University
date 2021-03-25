@@ -2,15 +2,17 @@ import React from "react";
 import styles from "./CardsPage.module.css";
 import CardItem from "./card-item/CardItem";
 import {
+    blockCard,
     closeCreateCardModal,
     createCard,
     fetchCards,
     openCreateCardModal,
-    openTopUpModal
+    openTopUpModal, openTransferModal
 } from "../../redux/reducers/cardsReducer";
 import {connect} from "react-redux";
 import CreateCardModal from "./CreateCardModal";
 import TopUpModal from "./TopUpModal";
+import TransferModal from "./TransferModal";
 
 class CardsPage extends React.Component {
     componentDidMount() {
@@ -29,7 +31,10 @@ class CardsPage extends React.Component {
                     this.props.cards
                         .map((card) => (
                             <div className={`${styles.content__card}`}>
-                                <CardItem onTopUpClick={(cardId) => this.props.openTopUpModal(cardId)} card={card}/>
+                                <CardItem onTopUpClick={(cardId) => this.props.openTopUpModal(cardId)}
+                                          onTransferClick={(cardId) => this.props.openTransferModal(cardId)}
+                                          onBlockClick={(cardId) => this.props.blockCard(cardId)}
+                                          card={card}/>
                             </div>
                         ))
                 }
@@ -37,6 +42,7 @@ class CardsPage extends React.Component {
 
                 <CreateCardModal/>
                 <TopUpModal/>
+                <TransferModal/>
             </div>
         )
     }
@@ -52,8 +58,10 @@ function mapDispatchToProps(dispatch){
     return{
         fetchCards:()=>dispatch(fetchCards()),
         createCard:()=>dispatch(createCard()),
+        blockCard:(cardId)=>dispatch(blockCard(cardId)),
         openCreateCardModal:()=>dispatch(openCreateCardModal()),
-        openTopUpModal:(cardId)=>dispatch(openTopUpModal(cardId))
+        openTopUpModal:(cardId)=>dispatch(openTopUpModal(cardId)),
+        openTransferModal:(cardId)=>dispatch(openTransferModal(cardId)),
     }
 }
 

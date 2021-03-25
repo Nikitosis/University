@@ -1,22 +1,30 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import {Button} from "react-bootstrap";
-import {closeCreateCardModal, closeTopUpModal, createCard, topUpCard} from "../../redux/reducers/cardsReducer";
+import {
+    closeCreateCardModal,
+    closeTopUpModal, closeTransferModal,
+    createCard,
+    topUpCard,
+    transfer
+} from "../../redux/reducers/cardsReducer";
 import {connect} from "react-redux";
 
-class TopUpModal extends React.Component{
+class TransferModal extends React.Component{
     constructor(props){
         super(props);
 
         this.state={
-            amount:""
+            amount:"",
+            cardToId:""
         }
     }
 
     setDefaultState(){
         this.setState(
             {
-                amount:""
+                amount:"",
+                cardToId:""
             }
         )
     }
@@ -30,35 +38,27 @@ class TopUpModal extends React.Component{
 
     handleChange=(event)=>{
 
-        if(!event.target.validity.valid) {
-            this.setState({
-                nameValidationMessage:"Only numbers are allowed"
-            })
-            return;
-        }
-
         this.setState({
             [event.target.name]:event.target.value,
-            nameValidationMessage:""
         })
     }
 
     handleSave=()=>{
         let amount = this.state.amount;
-        let cardId = this.props.cardId;
+        let cardTo = this.state.cardToId;
+        let cardFrom = this.props.cardId;
         this.props.onSave(
-            cardId,
+            cardFrom,
+            cardTo,
             amount
         );
     }
-
 
     handleClose=()=>{
         this.props.onClose();
     }
 
     render() {
-        let nameValidationMessage = this.state.nameValidationMessage;
         return (
             <Modal show={this.props.show} onHide={this.handleClose}>
                 <Modal.Header closeButton>
@@ -69,9 +69,10 @@ class TopUpModal extends React.Component{
                         <div className="form-group">
                             <label className={"font-weight-bold"}>Amount to top up</label>
                             <input type="text" pattern="[0-9]*" className={`form-control`} placeholder="Amount" name="amount" value={this.state.amount} onChange={this.handleChange}/>
-                            <small className="text-danger">
-                                {nameValidationMessage}
-                            </small>
+                        </div>
+                        <div className="form-group">
+                            <label className={"font-weight-bold"}>Card from id</label>
+                            <input type="text" pattern="[0-9]*" className={`form-control`} placeholder="Card to id" name="cardToId" value={this.state.cardToId} onChange={this.handleChange}/>
                         </div>
                     </form>
                 </Modal.Body>
@@ -80,7 +81,7 @@ class TopUpModal extends React.Component{
                         Close
                     </Button>
                     <Button variant="primary" onClick={this.handleSave}>
-                        Top up
+                        Transfer
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -91,16 +92,16 @@ class TopUpModal extends React.Component{
 
 function mapStateToProps(state){
     return {
-        show:state.cardsReducer.isTopUpModalOpened,
+        show:state.cardsReducer.isTransferModalOpened,
         cardId:state.cardsReducer.curCardId
     }
 }
 
 function mapDispatchToProps(dispatch){
     return{
-        onSave:(cardId, amount)=>dispatch(topUpCard(cardId, amount)),
-        onClose:()=>dispatch(closeTopUpModal())
+        onSave:(cardFromId, cardToId, amount)=>dispatch(transfer(cardFromId, cardToId, amount)),
+        onClose:()=>dispatch(closeTransferModal())
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopUpModal);
+export default connect(mapStateToProps, mapDispatchToProps)(TransferModal);

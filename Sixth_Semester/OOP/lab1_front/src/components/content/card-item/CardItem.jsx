@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./CardItem.module.css";
 
-const CardItem = ({onTopUpClick, card}) => {
+const CardItem = ({onTopUpClick, onTransferClick, onBlockClick, card}) => {
+    let blockedColor = card.bankAccount.status === 'BLOCKED' ? styles.card__blocked : "";
     return (
-        <div className="card">
+        <div className={`card ${blockedColor}`}>
             <div className="card-img-top"/>
                 <div className="card-body">
                     <h4 className="card-title">{card.name}</h4>
@@ -12,8 +13,8 @@ const CardItem = ({onTopUpClick, card}) => {
                     <p className="card-text">Status: {card.bankAccount.status}</p>
                     <div className="d-flex flex-row justify-content-between">
                         <button type="button" className={`${styles.btn__topUp} btn`} onClick={() => onTopUpClick(card.id)}>Top up</button>
-                        <a href="#" className={`${styles.btn__transfer} btn`}>Transfer</a>
-                        <a href="#" className={`${styles.btn__block} btn`}>Block</a>
+                        <button type="button" className={`${styles.btn__transfer} btn`} onClick={() => onTransferClick(card.id)}>Transfer</button>
+                        <button type="button" className={`${styles.btn__block} btn`} onClick={() => onBlockClick(card.id)}>Block</button>
                     </div>
                 </div>
         </div>

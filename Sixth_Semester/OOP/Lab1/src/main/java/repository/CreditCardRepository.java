@@ -20,7 +20,7 @@ public class CreditCardRepository {
 
     public List<CreditCard> findByUserId(Long id) {
         String command = "SELECT cc.id as ccId, cc.name as ccName, ba.id as baId," +
-                " ba.balance as baBalance, ba.status as baStatus FROM credit_card cc LEFT JOIN bank_account ba ON cc.bank_account_id = ba.id AND ba.user_id = ?";
+                " ba.balance as baBalance, ba.status as baStatus FROM credit_card cc LEFT JOIN bank_account ba ON cc.bank_account_id = ba.id WHERE ba.user_id = ?";
 
         try (Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
@@ -42,7 +42,7 @@ public class CreditCardRepository {
 
     public Optional<CreditCard> findById(Long id) {
         String command = "SELECT cc.id as ccId, cc.name as ccName, ba.id as baId," +
-                " ba.balance as baBalance, ba.status as baStatus FROM credit_card cc LEFT JOIN bank_account ba ON cc.bank_account_id = ba.id AND cc.id=?";
+                " ba.balance as baBalance, ba.status as baStatus FROM credit_card cc LEFT JOIN bank_account ba ON cc.bank_account_id = ba.id WHERE cc.id=?";
         try (Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setLong(1, id);

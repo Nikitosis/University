@@ -1,6 +1,8 @@
 package repository;
 
+import entities.dao.CreditCard;
 import entities.dao.User;
+import mappers.CreditCardMapper;
 import mappers.UserMapper;
 
 import java.sql.Connection;
@@ -8,12 +10,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserRepository {
     public static UserRepository INSTANCE = new UserRepository();
 
     private UserRepository() {}
+
+    public List<User> findAll() {
+        String command = "SELECT * FROM users";
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<User> users = new ArrayList<>();
+            while(resultSet.next()) {
+                users.add(UserMapper.INSTANCE.resultSetToEntity(resultSet));
+            }
+
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
     public Optional<User> findById(Long id) {
         String command = "SELECT * FROM users WHERE id=?";

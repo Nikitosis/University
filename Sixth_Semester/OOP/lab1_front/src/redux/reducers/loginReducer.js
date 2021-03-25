@@ -73,7 +73,7 @@ export function executeLogin(username,password){
             .then((response) => {
                 let token=response.data.token;
                 let info = jwt(token);
-                let roles = info.authorities.split(',');
+                let roles = info.authorities.split(';');
                 dispatch(loginUserSuccess(roles, token));
             })
             .catch(() => {

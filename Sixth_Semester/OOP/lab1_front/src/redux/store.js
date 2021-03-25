@@ -5,8 +5,12 @@ import {loadState, saveState} from "./localStoreManager";
 import thunk from "redux-thunk";
 import * as AxiosInterceptors from "./AxiosInterceptors";
 import cardsReducer from "./reducers/cardsReducer";
+import usersReducer from "./reducers/usersReducer";
+import registrationReducer from "./reducers/registrationReducer";
 
 const reducers=combineReducers({
+    registrationReducer,
+    usersReducer,
     cardsReducer,
     loginReducer
 });

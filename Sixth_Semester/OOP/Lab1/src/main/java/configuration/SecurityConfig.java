@@ -37,6 +37,9 @@ public class SecurityConfig {
         urlRequiredAuth.put("/user", Map.ofEntries(
                 Map.entry(HttpMethod.GET, Arrays.asList(AuthRole.USER, AuthRole.ADMIN))
         ));
+        urlRequiredAuth.put("/users", Map.ofEntries(
+                Map.entry(HttpMethod.GET, Arrays.asList(AuthRole.ADMIN))
+        ));
         urlRequiredAuth.put("/user/credit-card", Map.ofEntries(
                 Map.entry(HttpMethod.GET, Arrays.asList(AuthRole.USER, AuthRole.ADMIN))
         ));

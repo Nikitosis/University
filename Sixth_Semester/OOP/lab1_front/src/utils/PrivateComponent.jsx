@@ -20,7 +20,7 @@ function PrivateComponent(props){
 
         // check if route is restricted by role
         let isRolePass=false;
-        let accessRoles=props.roles!==undefined? props.roles : null;
+        let accessRoles=props.requiredRoles!==undefined? props.requiredRoles : null;
         let userRoles=props.roles;
         for(let i=0;i<userRoles.length;i++){
             if(accessRoles && accessRoles.indexOf(userRoles[i])!==-1){

@@ -9,6 +9,7 @@ import utils.AuthRole;
 import utils.Encryptor;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -18,6 +19,10 @@ public class UserService {
     private UserRoleService userRoleService = UserRoleService.INSTANCE;
 
     private UserService() {
+    }
+
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     public User getById(Long id) {
