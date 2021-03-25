@@ -36,11 +36,9 @@ export function fetchUsersFailure() {
 
 export function fetchUsers() {
     return (dispatch,getState)=>{
-        debugger;
         dispatch(fetchUsersStarted());
         UsersAPI.getAllUsers()
             .then(res=> {
-                    debugger;
                     const users = res.data;
                     dispatch(fetchUsersSuccess(users));
                 }

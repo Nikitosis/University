@@ -12,7 +12,7 @@ const Navbar = (props) => {
         <nav className="navbar navbar-expand-md navbar-dark bg-primary">
             <ul className="nav">
                 <li className="nav-item">
-                    <PrivateComponent requiredRoles={["USER","ADMIN"]}>
+                    <PrivateComponent requiredRoles={["USER"]}>
                         <NavLink className={`nav-link ${styles.nav_link}`} to="/my-cards" activeClassName={styles.nav_link__active}>My cards</NavLink>
                     </PrivateComponent>
                 </li>

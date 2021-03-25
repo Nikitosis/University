@@ -8,6 +8,7 @@ import LoginPage from "./components/authentication/LoginPage";
 import {connect} from "react-redux";
 import PrivateRoute from "./utils/PrivateRoute";
 import UserList from "./components/users/UserList";
+import UserCardsPage from "./components/content/user-cards/UserCardsPage";
 
 const App = props => {
   return (
@@ -17,6 +18,7 @@ const App = props => {
             <div className={`${styles.wrapper} p-0`}>
                 <PrivateRoute requiredRoles={["USER","ADMIN"]} exact path="/my-cards" component={CardsPage} userRoles={props.roles} isLogged={props.isLogged}/>
                 <PrivateRoute requiredRoles={["ADMIN"]} exact path="/users" component={UserList} userRoles={props.roles} isLogged={props.isLogged}/>
+                <PrivateRoute requiredRoles={["ADMIN"]} exact path="/users/:userId" component={UserCardsPage} userRoles={props.roles} isLogged={props.isLogged}/>
                 <PrivateRoute nonAuthorised={true} exact path="/login" component={LoginPage} userRoles={props.roles} isLogged={props.isLogged}/>
             </div>
         </div>

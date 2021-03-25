@@ -27,6 +27,7 @@ public class UserMapper {
         response.setId(user.getId());
         response.setFirstName(user.getFirstName());
         response.setLastName(user.getLastName());
+        response.setUsername(user.getUsername());
 
         return response;
     }

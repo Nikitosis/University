@@ -7,6 +7,15 @@ class CardsAPI {
         return axios.get(`${URL}/user/credit-card`);
     }
 
+    getUserCards(userId) {
+        let request = {
+            userId:userId
+        }
+        return axios.post(`${URL}/specificUser/credit-cards`,
+            request
+        );
+    }
+
     createCard(card) {
         return axios.post(`${URL}/credit-card`,
             card
@@ -34,6 +43,14 @@ class CardsAPI {
 
     blockCard(cardId) {
         return axios.post(`${URL}/credit-card/block`,
+            {
+                id: cardId
+            }
+        )
+    }
+
+    unblockCard(cardId) {
+        return axios.post(`${URL}/credit-card/unblock`,
             {
                 id: cardId
             }

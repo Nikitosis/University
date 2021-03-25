@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebServlet("/user/credit-card")
-public class UserCreditCardsResource extends HttpServlet {
+public class MyCardsResource extends HttpServlet {
 
     private CreditCardService creditCardService = CreditCardService.INSTANCE;
 

@@ -1,0 +1,20 @@
+.content {
+    min-height: 100%;
+    width: 100%;
+    padding:0
+}
+
+.content__card {
+    width: 50%;
+    margin-top: 20px
+}
+
+.content__card:after {
+    content: "";
+    display: block;
+}
+
+.button {
+    margin-top: 20px;
+    margin-left: 80%;
+}

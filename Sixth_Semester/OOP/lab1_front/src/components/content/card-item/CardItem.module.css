@@ -10,6 +10,10 @@
     background-color: #B94A4A;
 }
 
+.btn__unblock{
+    background-color: #6b34eb;
+}
+
 .card__blocked{
     background-color: #ffabab;
 }

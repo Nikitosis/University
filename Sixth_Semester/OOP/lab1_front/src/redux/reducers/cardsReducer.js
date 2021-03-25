@@ -20,6 +20,10 @@ const BLOCK_CARD_STARTED="BLOCK_CARD_STARTED";
 const BLOCK_CARD_SUCCESS="BLOCK_CARD_SUCCESS";
 const BLOCK_CARD_FAILURE="BLOCK_CARD_FAILURE";
 
+const UNBLOCK_CARD_STARTED="UNBLOCK_CARD_STARTED";
+const UNBLOCK_CARD_SUCCESS="UNBLOCK_CARD_SUCCESS";
+const UNBLOCK_CARD_FAILURE="UNBLOCK_CARD_FAILURE";
+
 const CLOSE_CREATE_CARD_MODAL="CLOSE_CREATE_CARD_MODAL";
 const OPEN_CREATE_CARD_MODAL="OPEN_CREATE_CARD_MODAL";
 
@@ -82,6 +86,7 @@ export default function cardsReducer(state=initialState, action){
                 loading:true
             }
         case FETCH_CARDS_SUCCESS:
+            debugger;
             return{
                 ...state,
                 loading:false,
@@ -181,11 +186,40 @@ export function blockCardFailure() {
     return {type: BLOCK_CARD_FAILURE}
 }
 
+export function unblockCardStarted() {
+    return {type: UNBLOCK_CARD_STARTED}
+}
+
+export function unblockCardSuccess() {
+    return {type: UNBLOCK_CARD_SUCCESS}
+}
+
+export function unblockCardFailure() {
+    return {type: UNBLOCK_CARD_FAILURE}
+}
+
 export function fetchCards(){
     return (dispatch,getState)=>{
         dispatch(fetchCardsStarted());
         CardsAPI.getMyCards()
             .then(res=> {
+                    const cards=res.data;
+                    dispatch(fetchCardsSuccess(cards));
+                }
+            )
+            .catch((e)=>{
+                dispatch(fetchCardsFailure());
+            })
+    };
+}
+
+export function fetchUserCards(userId) {
+    return (dispatch,getState)=>{
+        debugger;
+        dispatch(fetchCardsStarted());
+        CardsAPI.getUserCards(userId)
+            .then(res=> {
+                debugger;
                     const cards=res.data;
                     dispatch(fetchCardsSuccess(cards));
                 }
@@ -258,4 +292,21 @@ export function blockCard(cardId){
             })
     };
 }
+
+export function unblockCard(cardId, userId){
+    return (dispatch,getState)=>{
+        dispatch(unblockCardStarted());
+        CardsAPI.unblockCard(cardId)
+            .then(res=> {
+                debugger;
+                    dispatch(unblockCardSuccess());
+                    dispatch(fetchUserCards(userId))
+                }
+            )
+            .catch((e)=>{
+                dispatch(unblockCardFailure());
+            })
+    };
+}
+
 

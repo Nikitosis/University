@@ -1,16 +1,22 @@
 import React from "react";
 import {connect} from "react-redux";
 import {fetchUsers} from "../../redux/reducers/usersReducer";
+import {NavLink} from "react-router-dom";
+import styles from "../navbar/Navbar.module.css";
+import PrivateComponent from "../../utils/PrivateComponent";
 
 class UserList extends React.Component {
 
     componentDidMount() {
         this.props.fetchUsers();
-        this.timer=setInterval(()=>this.props.fetchUsers(),60000);
+        this.timer = setInterval(() => this.props.fetchUsers(), 60000);
+    }
+
+    onUserClick=(userId)=>{
+        this.props.history.push("/users/"+userId);
     }
 
     render() {
-        debugger;
         return (
             <div>
                 <table className="table">
@@ -26,12 +32,12 @@ class UserList extends React.Component {
                     {
                         this.props.users
                             .map((user) => (
-                                <tr>
-                                    <th scope="row">{user.id}</th>
-                                    <td>{user.firstName}</td>
-                                    <td>{user.lastName}</td>
-                                    <td>{user.username}</td>
-                                </tr>
+                                    <tr onClick={()=>this.onUserClick(user.id)}>
+                                        <th scope="row">{user.id}</th>
+                                        <td>{user.firstName}</td>
+                                        <td>{user.lastName}</td>
+                                        <td>{user.username}</td>
+                                    </tr>
                             ))
                     }
                     </tbody>
@@ -41,16 +47,16 @@ class UserList extends React.Component {
     }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
-        users:state.usersReducer.users
+        users: state.usersReducer.users
     }
 }
 
-function mapDispatchToProps(dispatch){
-    return{
-        fetchUsers:()=>dispatch(fetchUsers()),
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchUsers: () => dispatch(fetchUsers()),
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(UserList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
