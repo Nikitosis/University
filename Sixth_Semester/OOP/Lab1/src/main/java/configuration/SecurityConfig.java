@@ -43,6 +43,9 @@ public class SecurityConfig {
         urlRequiredAuth.put("/user/credit-card", Map.ofEntries(
                 Map.entry(HttpMethod.GET, Arrays.asList(AuthRole.USER, AuthRole.ADMIN))
         ));
+        urlRequiredAuth.put("/specificUser/credit-cards", Map.ofEntries(
+                Map.entry(HttpMethod.GET, Arrays.asList(AuthRole.ADMIN))
+        ));
     }
 
     public static boolean isSecured(String url, String method) {
