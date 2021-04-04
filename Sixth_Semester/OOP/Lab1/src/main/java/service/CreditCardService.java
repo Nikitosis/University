@@ -18,12 +18,10 @@ import java.util.List;
 public class CreditCardService {
     public static CreditCardService INSTANCE = new CreditCardService();
 
-    private static UserService userService = UserService.INSTANCE;
-    private static BankAccountRepository bankAccountRepository = BankAccountRepository.INSTANCE;
-    private static BankAccountService bankAccountService = BankAccountService.INSTANCE;
-    private static CreditCardRepository creditCardRepository = CreditCardRepository.INSTANCE;
-
-    private CreditCardService() {}
+    private UserService userService = UserService.INSTANCE;
+    private BankAccountRepository bankAccountRepository = BankAccountRepository.INSTANCE;
+    private BankAccountService bankAccountService = BankAccountService.INSTANCE;
+    private CreditCardRepository creditCardRepository = CreditCardRepository.INSTANCE;
 
     public CreditCard create(Long userId, CreditCardCreateRequest request) {
         Connection connection = ConnectionFactory.getConnection();
