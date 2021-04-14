@@ -49,7 +49,7 @@ public class UserService {
         user.setLastName(request.getLastName());
         user.setUsername(request.getUsername());
 
-        user = userRepository.save(user);
+        userRepository.save(user);
 
         String keycloakId = authorizationService.createUser(user, request.getPassword());
 

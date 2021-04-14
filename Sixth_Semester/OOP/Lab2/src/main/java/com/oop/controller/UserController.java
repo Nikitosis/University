@@ -7,7 +7,6 @@ import com.oop.entities.request.CreditCardCreateRequest;
 import com.oop.entities.request.CreditCardTopUpRequest;
 import com.oop.entities.request.CreditCardTransferRequest;
 import com.oop.entities.request.CreditCardUnblockRequest;
-import com.oop.entities.request.GetUserCardsRequest;
 import com.oop.entities.request.LoginRequest;
 import com.oop.entities.request.UserCreateRequest;
 import com.oop.entities.response.CreditCardResponse;
@@ -21,7 +20,6 @@ import com.oop.service.UserService;
 import com.oop.utils.PrincipalUtils;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,16 +31,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-    private final CreditCardService creditCardServicee;
-    private final AuthorizationService authorizationService;
     private final CreditCardService creditCardService;
+    private final AuthorizationService authorizationService;
     private final PrincipalUtils principalUtils;
 
 
@@ -67,9 +63,9 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/user/{id}/credit-cards")
-    public ResponseEntity<List<CreditCardResponse>> getUserCards(@Valid @RequestBody GetUserCardsRequest request) {
-        List<CreditCard> creditCards = creditCardServicee.getByUserId(request.getUserId());
+    @GetMapping("/user/{id}/credit-cards")
+    public ResponseEntity<List<CreditCardResponse>> getUserCards(@PathVariable("id") Long userId) {
+        List<CreditCard> creditCards = creditCardService.getByUserId(userId);
 
         List<CreditCardResponse> responses =  CreditCardMapper.INSTANCE.toResponses(creditCards);
 
@@ -77,11 +73,11 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyAuthority('USER, ADMIN')")
-    @GetMapping("/credit-cards")
+    @GetMapping("/user/credit-cards")
     public ResponseEntity<List<CreditCardResponse>> getMyCards(KeycloakAuthenticationToken principal) {
 
         Long userId = principalUtils.getUserIdFromPrincipal(principal);
-        List<CreditCard> creditCards = creditCardServicee.getByUserId(userId);
+        List<CreditCard> creditCards = creditCardService.getByUserId(userId);
 
         List<CreditCardResponse> responses =  CreditCardMapper.INSTANCE.toResponses(creditCards);
 
@@ -98,7 +94,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/credit-card//unblock")
+    @PostMapping("/credit-card/unblock")
     @PreAuthorize("hasAnyAuthority('USER, ADMIN')")
     public ResponseEntity unblockCard(@Valid @RequestBody CreditCardUnblockRequest request) {
         creditCardService.unblock(request.getId());

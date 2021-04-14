@@ -48,7 +48,7 @@ public class CreditCardService {
         CreditCard cardFrom = getById(request.getCardFromId());
         CreditCard cardTo = getById(request.getCardToId());
 
-        bankAccountService.transfer(cardFrom.getBankAccount().getId(), cardFrom.getBankAccount().getId(), request.getAmount());
+        bankAccountService.transfer(cardFrom.getBankAccount().getId(), cardTo.getBankAccount().getId(), request.getAmount());
     }
 
     public void block(Long cardId) {
