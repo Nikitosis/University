@@ -47,6 +47,23 @@ class TransferModal extends React.Component{
         let amount = this.state.amount;
         let cardTo = this.state.cardToId;
         let cardFrom = this.props.cardId;
+
+        if(!/^\d+$/.test(amount)) {
+            this.setState({
+                amountValidationMessage:"Amount should be positive value"
+            })
+
+            return;
+        }
+
+        if(!/^\d+$/.test(cardTo)) {
+            this.setState({
+                cardToIdValidationMessage:"Card id must be positive value"
+            })
+
+            return;
+        }
+
         this.props.onSave(
             cardFrom,
             cardTo,
@@ -59,6 +76,9 @@ class TransferModal extends React.Component{
     }
 
     render() {
+        let amountValidationStyle = this.state.amountValidationMessage==null ? "" : "is-invalid";
+        let cardToIdValidationStyle = this.state.cardToIdValidationMessage==null ? "" : "is-invalid";
+
         return (
             <Modal show={this.props.show} onHide={this.handleClose}>
                 <Modal.Header closeButton>
@@ -68,11 +88,17 @@ class TransferModal extends React.Component{
                     <form className="form">
                         <div className="form-group">
                             <label className={"font-weight-bold"}>Amount to top up</label>
-                            <input type="text" pattern="[0-9]*" className={`form-control`} placeholder="Amount" name="amount" value={this.state.amount} onChange={this.handleChange}/>
+                            <input type="text" className={`form-control ${amountValidationStyle}`} placeholder="Amount" name="amount" value={this.state.amount} onChange={this.handleChange}/>
+                            <small className="text-danger">
+                                {this.state.amountValidationMessage}
+                            </small>
                         </div>
                         <div className="form-group">
-                            <label className={"font-weight-bold"}>Card from id</label>
-                            <input type="text" pattern="[0-9]*" className={`form-control`} placeholder="Card to id" name="cardToId" value={this.state.cardToId} onChange={this.handleChange}/>
+                            <label className={"font-weight-bold"}>Card to id</label>
+                            <input type="text" className={`form-control ${cardToIdValidationStyle}`} placeholder="Card to id" name="cardToId" value={this.state.cardToId} onChange={this.handleChange}/>
+                            <small className="text-danger">
+                                {this.state.cardToIdValidationMessage}
+                            </small>
                         </div>
                     </form>
                 </Modal.Body>

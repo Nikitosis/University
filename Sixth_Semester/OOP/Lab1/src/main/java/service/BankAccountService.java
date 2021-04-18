@@ -4,6 +4,7 @@ import entities.dao.BankAccount;
 import entities.dao.BankAccountStatus;
 import repository.BankAccountRepository;
 import repository.ConnectionFactory;
+import repository.ConnectionPool;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -36,7 +37,7 @@ public class BankAccountService {
     }
 
     public void topUp(Long bankAccountId, BigDecimal amount) {
-        Connection connection = ConnectionFactory.getConnection();
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
         try {
             ConnectionFactory.beginTransaction(connection, Connection.TRANSACTION_REPEATABLE_READ);
             BankAccount bankAccount = bankAccountRepository.findById(bankAccountId, connection).get();
@@ -55,12 +56,12 @@ public class BankAccountService {
             ConnectionFactory.rollbackTransaction(connection);
             throw new RuntimeException(e);
         } finally {
-            ConnectionFactory.close(connection);
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
     public void transfer(Long bankAccountFromId, Long bankAccountToId, BigDecimal amount) {
-        Connection connection = ConnectionFactory.getConnection();
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
         try {
             ConnectionFactory.beginTransaction(connection, Connection.TRANSACTION_REPEATABLE_READ);
             BankAccount bankAccountFrom = bankAccountRepository.findById(bankAccountFromId, connection).get();
@@ -90,7 +91,7 @@ public class BankAccountService {
             ConnectionFactory.rollbackTransaction(connection);
             throw new RuntimeException(e);
         } finally {
-            ConnectionFactory.close(connection);
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 }

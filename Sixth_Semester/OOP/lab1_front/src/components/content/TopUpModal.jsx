@@ -29,22 +29,20 @@ class TopUpModal extends React.Component{
     }
 
     handleChange=(event)=>{
-
-        if(!event.target.validity.valid) {
-            this.setState({
-                nameValidationMessage:"Only numbers are allowed"
-            })
-            return;
-        }
-
         this.setState({
             [event.target.name]:event.target.value,
-            nameValidationMessage:""
         })
     }
 
     handleSave=()=>{
         let amount = this.state.amount;
+        if(!/^\d+$/.test(amount)) {
+            this.setState({
+                amountValidationMessage:"Amount should be positive value"
+            })
+
+            return;
+        }
         let cardId = this.props.cardId;
         this.props.onSave(
             cardId,
@@ -58,7 +56,7 @@ class TopUpModal extends React.Component{
     }
 
     render() {
-        let nameValidationMessage = this.state.nameValidationMessage;
+        let amountValidationStyle = this.state.amountValidationMessage==null ? "" : "is-invalid";
         return (
             <Modal show={this.props.show} onHide={this.handleClose}>
                 <Modal.Header closeButton>
@@ -68,9 +66,9 @@ class TopUpModal extends React.Component{
                     <form className="form">
                         <div className="form-group">
                             <label className={"font-weight-bold"}>Amount to top up</label>
-                            <input type="text" pattern="[0-9]*" className={`form-control`} placeholder="Amount" name="amount" value={this.state.amount} onChange={this.handleChange}/>
+                            <input type="text" className={`form-control ${amountValidationStyle}`} placeholder="Amount" name="amount" value={this.state.amount} onChange={this.handleChange}/>
                             <small className="text-danger">
-                                {nameValidationMessage}
+                                {this.state.amountValidationMessage}
                             </small>
                         </div>
                     </form>

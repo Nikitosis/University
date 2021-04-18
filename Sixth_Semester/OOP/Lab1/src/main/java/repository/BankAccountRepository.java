@@ -37,17 +37,18 @@ public class BankAccountRepository {
     }
 
     public Optional<BankAccount> findById(Long id) {
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
            return findById(id, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
     public Optional<BankAccount> findByCardId(Long id) {
         String command = "SELECT ba.* FROM bank_account ba INNER JOIN credit_card cc ON cc.bank_account_id = ba.id WHERE cc.id=?";
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -61,6 +62,8 @@ public class BankAccountRepository {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
@@ -82,11 +85,11 @@ public class BankAccountRepository {
     }
 
     public BankAccount update(BankAccount bankAccount) {
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             return update(bankAccount, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
@@ -114,11 +117,11 @@ public class BankAccountRepository {
     }
 
     public BankAccount create(BankAccount bankAccount) {
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
            return create(bankAccount, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 }

@@ -36,6 +36,15 @@ class CreateCardModal extends React.Component{
 
     handleSave=()=>{
         let name = this.state.name;
+        if(name === "") {
+            this.setState(
+                {
+                    nameErrorMessage: "Name can't be empty"
+                }
+            );
+            return;
+        }
+
         this.props.onSave({
             name
         });
@@ -47,7 +56,7 @@ class CreateCardModal extends React.Component{
     }
 
     render() {
-        let nameValidationStyle=this.props.nameErrorMessage==null ? "" : "is-invalid";
+        let nameValidationStyle=this.state.nameErrorMessage==null ? "" : "is-invalid";
         return (
             <Modal show={this.props.show} onHide={this.handleClose}>
                 <Modal.Header closeButton>
@@ -58,6 +67,9 @@ class CreateCardModal extends React.Component{
                         <div className="form-group">
                             <label className={"font-weight-bold"}>Name</label>
                             <input type="text" className={`form-control ${nameValidationStyle}`} placeholder="Card name" name="name" value={this.state.name} onChange={this.handleChange}/>
+                            <small className="text-danger">
+                                {this.state.nameErrorMessage}
+                            </small>
                         </div>
                     </form>
                 </Modal.Body>

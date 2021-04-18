@@ -244,8 +244,8 @@ def search(node, region):
             search(node.right, region)
 
 
-point1 = Point(6.1, 1)
-point2 = Point(10, 11)
+point1 = Point(6, 1)
+point2 = Point(8, 2)
 
 points = read_points()
 tree = build_tree(points)

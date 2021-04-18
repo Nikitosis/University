@@ -4,6 +4,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
@@ -32,8 +33,11 @@ public class ConnectionFactory {
 
     public static void beginTransaction(Connection connection, int isolationLevel) {
         try {
-            connection.setAutoCommit(false);
-            connection.setTransactionIsolation(isolationLevel);
+            String command = "BEGIN";
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
+            preparedStatement.execute();
+//            connection.setAutoCommit(false);
+//            connection.setTransactionIsolation(isolationLevel);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -42,8 +46,11 @@ public class ConnectionFactory {
 
     public static void commitTransaction(Connection connection) {
         try {
-            connection.commit();
-            connection.setAutoCommit(true);
+            String command = "COMMIT";
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
+            preparedStatement.execute();
+//            connection.commit();
+//            connection.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -52,8 +59,11 @@ public class ConnectionFactory {
 
     public static void rollbackTransaction(Connection connection) {
         try {
-            connection.rollback();
-            connection.setAutoCommit(true);
+            String command = "ROLLBACK";
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
+            preparedStatement.execute();
+//            connection.rollback();
+//            connection.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

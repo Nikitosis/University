@@ -21,7 +21,8 @@ public class UserRoleRepository {
 
     public Optional<UserRole> findByName(String name) {
         String command = "SELECT * FROM user_role WHERE name=?";
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -34,6 +35,8 @@ public class UserRoleRepository {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
@@ -41,7 +44,8 @@ public class UserRoleRepository {
         String command = "SELECT r.* FROM users_user_role uur LEFT JOIN user_role r " +
                 "ON uur.user_role_id = r.id " +
                 "WHERE uur.user_id=?";
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -55,15 +59,17 @@ public class UserRoleRepository {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
     public void addRole(Long userId, Integer roleId) {
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             addRole(userId, roleId, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 

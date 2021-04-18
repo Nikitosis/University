@@ -21,7 +21,8 @@ public class UserRepository {
 
     public List<User> findAll() {
         String command = "SELECT * FROM users";
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -34,12 +35,15 @@ public class UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
     public Optional<User> findById(Long id) {
         String command = "SELECT * FROM users WHERE id=?";
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -52,12 +56,15 @@ public class UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
     public Optional<User> findByUsername(String username) {
         String command = "SELECT * FROM users WHERE username=?";
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -70,15 +77,17 @@ public class UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 
     public User create(User user) {
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
+        try {
             return create(user, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+        } finally {
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 

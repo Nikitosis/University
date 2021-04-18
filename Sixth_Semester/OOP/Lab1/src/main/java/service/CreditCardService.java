@@ -9,6 +9,7 @@ import entities.request.CreditCardCreateRequest;
 import entities.request.CreditCardTransferRequest;
 import repository.BankAccountRepository;
 import repository.ConnectionFactory;
+import repository.ConnectionPool;
 import repository.CreditCardRepository;
 
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ public class CreditCardService {
     private CreditCardRepository creditCardRepository = CreditCardRepository.INSTANCE;
 
     public CreditCard create(Long userId, CreditCardCreateRequest request) {
-        Connection connection = ConnectionFactory.getConnection();
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
         try {
             ConnectionFactory.beginTransaction(connection, Connection.TRANSACTION_READ_COMMITTED);
 
@@ -50,7 +51,7 @@ public class CreditCardService {
             ConnectionFactory.rollbackTransaction(connection);
             throw new RuntimeException(e);
         } finally {
-            ConnectionFactory.close(connection);
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 

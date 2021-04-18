@@ -6,6 +6,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=passsword
       - POSTGRES_DB=payments
-    container_name: postgres_payments
+    container_name: postgres_payments1
     ports:
       - "5432:5432"

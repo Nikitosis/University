@@ -4,6 +4,7 @@ import entities.dao.User;
 import entities.dao.UserRole;
 import entities.request.UserCreateRequest;
 import repository.ConnectionFactory;
+import repository.ConnectionPool;
 import repository.UserRepository;
 import utils.AuthRole;
 import utils.Encryptor;
@@ -45,7 +46,7 @@ public class UserService {
             throw new RuntimeException("User with username already exists");
         }
 
-        Connection connection = ConnectionFactory.getConnection();
+        Connection connection = ConnectionPool.INSTANCE.getConnection();
         try {
             ConnectionFactory.beginTransaction(connection, Connection.TRANSACTION_READ_COMMITTED);
 
@@ -67,7 +68,7 @@ public class UserService {
             ConnectionFactory.rollbackTransaction(connection);
             throw new RuntimeException(e);
         } finally {
-            ConnectionFactory.close(connection);
+            ConnectionPool.INSTANCE.releaseConnection(connection);
         }
     }
 }
