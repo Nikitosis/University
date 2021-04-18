@@ -152,9 +152,11 @@ public class UserControllerTest {
         request.setPassword("sssd");
         request.setUsername("use");
 
-        String token = "token";
+        TokenResponse tokenResponse = new TokenResponse();
+        tokenResponse.setToken("token");
+        tokenResponse.setRefreshToken("refrech");
 
-        when(authorizationService.login(request.getUsername(), request.getPassword())).thenReturn(token);
+        when(authorizationService.login(request.getUsername(), request.getPassword())).thenReturn(tokenResponse);
 
         String json = objectMapper.writeValueAsString(request);
 
@@ -166,7 +168,8 @@ public class UserControllerTest {
                 new TypeReference<>() {
                 });
 
-        assertEquals(token, response.getToken());
+        assertEquals(tokenResponse.getToken(), response.getToken());
+        assertEquals(tokenResponse.getRefreshToken(), response.getRefreshToken());
     }
 
     @Test

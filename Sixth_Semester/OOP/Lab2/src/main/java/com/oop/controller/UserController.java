@@ -8,6 +8,7 @@ import com.oop.entities.request.CreditCardTopUpRequest;
 import com.oop.entities.request.CreditCardTransferRequest;
 import com.oop.entities.request.CreditCardUnblockRequest;
 import com.oop.entities.request.LoginRequest;
+import com.oop.entities.request.RefreshTokenRequest;
 import com.oop.entities.request.UserCreateRequest;
 import com.oop.entities.response.CreditCardResponse;
 import com.oop.entities.response.TokenResponse;
@@ -86,10 +87,14 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginRequest request) {
-        String authToken = authorizationService.login(request.getUsername(), request.getPassword());
+        TokenResponse response = authorizationService.login(request.getUsername(), request.getPassword());
 
-        TokenResponse response = new TokenResponse();
-        response.setToken(authToken);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<TokenResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        TokenResponse response = authorizationService.refreshToken(request.getRefreshToken());
 
         return ResponseEntity.ok(response);
     }

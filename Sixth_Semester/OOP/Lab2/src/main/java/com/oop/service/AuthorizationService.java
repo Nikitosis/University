@@ -1,20 +1,28 @@
 package com.oop.service;
 
+import com.oop.client.KeycloakClient;
 import com.oop.entities.dao.User;
+import com.oop.entities.response.TokenResponse;
 import com.oop.utils.SecurityRoles;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.admin.client.token.TokenService;
+import org.keycloak.representations.AccessToken;
+import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,13 +52,41 @@ public class AuthorizationService {
     private String adminPassword;
 
     private final KeycloakBuilderService keycloakBuilderService;
+    private final KeycloakClient keycloakClient;
 
     private RealmResource getRealmResource() {
         return keycloakBuilderService.getKeycloak(adminUsername, adminPassword).realm(realm);
     }
 
-    public String login(String username, String password) {
-        return keycloakBuilderService.getKeycloak(username, password).tokenManager().getAccessTokenString();
+    public TokenResponse refreshToken(String refreshToken) {
+        Map<String, String> params = new HashMap<>();
+        params.put("refresh_token", refreshToken);
+        params.put("client_id", clientId);
+        params.put("grant_type", "refresh_token");
+        params.put("client_secret", clientSecret);
+
+
+        try {
+        AccessTokenResponse response = keycloakClient.getAccessToken(realm, params);
+
+        TokenResponse tokenResponse = new TokenResponse();
+        tokenResponse.setToken(response.getToken());
+        tokenResponse.setRefreshToken(response.getRefreshToken());
+
+        return tokenResponse;
+        } catch (FeignException e) {
+            throw new RuntimeException("Can't refresh token. Wrong refresh token or expired");
+        }
+    }
+
+    public TokenResponse login(String username, String password) {
+        AccessTokenResponse accessToken = keycloakBuilderService.getKeycloak(username, password).tokenManager().getAccessToken();
+
+        TokenResponse tokenResponse = new TokenResponse();
+        tokenResponse.setToken(accessToken.getToken());
+        tokenResponse.setRefreshToken(accessToken.getRefreshToken());
+
+        return tokenResponse;
     }
 
     public String createUser(User user, String password) {
