@@ -1,49 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-    <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
-    </rowConstraints>
-    <children>
-        <Pane prefHeight="385.0" prefWidth="656.0">
-            <children>
-                <Button fx:id="addBook" layoutX="372.0" layoutY="272.0" mnemonicParsing="false" onAction="#addBook" prefWidth="130.0" text="Add Book" />
-                <Button fx:id="deleteAuthor" layoutX="224.0" layoutY="346.0" mnemonicParsing="false" onAction="#deleteAuthor" prefWidth="130.0" text="Delete Author" />
-                <Button fx:id="updateAuthor" layoutX="224.0" layoutY="310.0" mnemonicParsing="false" onAction="#updateAuthor" prefWidth="130.0" text="Update Author" />
-                <Button fx:id="save" layoutX="519.0" layoutY="346.0" mnemonicParsing="false" onAction="#save" prefWidth="130.0" text="Save" />
-                <Button fx:id="addAuthor" layoutX="223.0" layoutY="272.0" mnemonicParsing="false" onAction="#addAuthor" prefWidth="130.0" text="Add Author" />
-                <TreeView fx:id="treeView" layoutX="14.0" layoutY="14.0" prefHeight="373.0" prefWidth="200.0" />
-                <TextField fx:id="year" layoutX="273.0" layoutY="50.0" prefHeight="25.0" prefWidth="111.0" />
-                <TextField fx:id="name" layoutX="273.0" layoutY="85.0" prefHeight="25.0" prefWidth="111.0" />
-                <TextField fx:id="genre" layoutX="273.0" layoutY="122.0" prefHeight="25.0" prefWidth="111.0" />
-                <TextField fx:id="codeAuthor" layoutX="438.0" layoutY="52.0" prefHeight="25.0" prefWidth="111.0" />
-                <TextField fx:id="nameAuthor" layoutX="438.0" layoutY="87.0" prefHeight="25.0" prefWidth="111.0" />
-                <Button fx:id="updateBook" layoutX="372.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteAuthor" prefWidth="130.0" text="Update book" />
-                <Button fx:id="deleteBook" layoutX="372.0" layoutY="346.0" mnemonicParsing="false" onAction="#deleteBook" prefWidth="130.0" text="Delete book" />
-                <Label fx:id="information" layoutX="564.0" layoutY="123.0" />
-                <Label layoutX="499.0" layoutY="132.0" text="Info:" />
-                <Label layoutX="437.0" layoutY="29.0" text="Author" />
-                <Label layoutX="273.0" layoutY="29.0" text="Book" />
-                <Label layoutX="223.0" layoutY="54.0" text="Year" />
-                <Label layoutX="224.0" layoutY="89.0" text="Name" />
-                <Label layoutX="224.0" layoutY="126.0" text="Genre" />
-                <Label layoutX="398.0" layoutY="56.0" text="Code" />
-                <Label layoutX="398.0" layoutY="91.0" text="Name" />
-            </children>
-        </Pane>
-    </children>
-</GridPane>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="762.0" fx:controller="com.lab2.Controller" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TreeView fx:id="treeView" layoutX="24.0" layoutY="24.0" prefHeight="373.0" prefWidth="333.0" />
+      <Pane layoutX="375.0" layoutY="16.0" prefHeight="161.0" prefWidth="333.0">
+         <children>
+            <TextField fx:id="producerId" layoutX="75.0" layoutY="51.0" prefHeight="25.0" prefWidth="116.0" />
+            <Text layoutX="13.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+            <TextField fx:id="producerName" layoutX="75.0" layoutY="84.0" prefHeight="25.0" prefWidth="116.0" />
+            <Text layoutX="13.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+            <Button layoutX="223.0" layoutY="51.0" mnemonicParsing="false" onAction="#createProducer" text="create" />
+            <Text layoutX="91.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Producer" />
+            <Button layoutX="223.0" layoutY="84.0" mnemonicParsing="false" onAction="#updateProducer" text="update" />
+            <Button layoutX="223.0" layoutY="118.0" mnemonicParsing="false" onAction="#deleteProducer" text="delete" />
+         </children>
+      </Pane>
+      <Pane layoutX="368.0" layoutY="183.0" prefHeight="161.0" prefWidth="333.0">
+         <children>
+            <TextField fx:id="productName" layoutX="72.0" layoutY="63.0" prefHeight="25.0" prefWidth="116.0" />
+            <Text layoutX="10.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+            <TextField fx:id="productYear" layoutX="72.0" layoutY="96.0" prefHeight="25.0" prefWidth="116.0" />
+            <Text layoutX="10.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year" />
+            <Button layoutX="220.0" layoutY="63.0" mnemonicParsing="false" onAction="#createProduct" text="create" />
+            <Text layoutX="226.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product" />
+            <Button layoutX="220.0" layoutY="96.0" mnemonicParsing="false" onAction="#updateProduct" text="update" />
+            <Button layoutX="220.0" layoutY="130.0" mnemonicParsing="false" onAction="#deleteProduct" text="delete" />
+            <TextField fx:id="productVersion" layoutX="73.0" layoutY="130.0" prefHeight="25.0" prefWidth="116.0" />
+            <Text layoutX="11.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Version" />
+            <TextField fx:id="productId" layoutX="74.0" layoutY="30.0" prefHeight="25.0" prefWidth="116.0" />
+            <Text layoutX="12.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id" />
+         </children>
+      </Pane>
+      <Button layoutX="607.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveToFile" prefWidth="130.0" text="Save to file" />
+   </children>
+</Pane>
