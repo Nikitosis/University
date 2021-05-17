@@ -2,17 +2,21 @@ package service;
 
 import entities.dao.BankAccount;
 import entities.dao.BankAccountStatus;
+import entities.dao.Transaction;
 import repository.BankAccountRepository;
 import repository.ConnectionFactory;
 import repository.ConnectionPool;
+import repository.TransactionRepository;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.time.LocalDateTime;
 
 public class BankAccountService {
     public static BankAccountService INSTANCE = new BankAccountService();
 
     private static BankAccountRepository bankAccountRepository = BankAccountRepository.INSTANCE;
+    private static TransactionRepository transactionRepository = TransactionRepository.INSTANCE;
 
     private BankAccountService() {}
 
@@ -84,6 +88,13 @@ public class BankAccountService {
 
             bankAccountRepository.update(bankAccountFrom, connection);
             bankAccountRepository.update(bankAccountTo, connection);
+
+            Transaction transaction = new Transaction();
+            transaction.setAmount(amount);
+            transaction.setFromAccount(bankAccountFrom);
+            transaction.setToAccount(bankAccountTo);
+            transaction.setCreatedAt(LocalDateTime.now());
+            transactionRepository.create(transaction, connection);
 
             ConnectionFactory.commitTransaction(connection);
 

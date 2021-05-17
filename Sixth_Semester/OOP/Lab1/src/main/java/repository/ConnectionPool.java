@@ -20,7 +20,7 @@ public class ConnectionPool {
         }
     }
 
-    public Connection getConnection() {
+    public synchronized Connection getConnection() {
         if (connectionPool.isEmpty()) {
             if (usedConnections.size() < MAX_POOL_SIZE) {
                 connectionPool.add(createConnection());
@@ -35,7 +35,7 @@ public class ConnectionPool {
         return connection;
     }
 
-    public boolean releaseConnection(Connection connection) {
+    public synchronized boolean releaseConnection(Connection connection) {
         connectionPool.add(connection);
         return usedConnections.remove(connection);
     }

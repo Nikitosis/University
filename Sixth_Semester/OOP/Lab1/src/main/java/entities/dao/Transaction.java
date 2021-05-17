@@ -8,7 +8,7 @@ public class Transaction {
     private BankAccount fromAccount;
     private BankAccount toAccount;
     private BigDecimal amount;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     public Long getId() {
         return id;

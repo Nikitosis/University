@@ -2,6 +2,7 @@ package com.oop.service;
 
 import com.oop.entities.dao.BankAccount;
 import com.oop.entities.dao.BankAccountStatus;
+import com.oop.entities.dao.Transaction;
 import com.oop.entities.dao.User;
 import com.oop.repository.BankAccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.sql.Connection;
 public class BankAccountService {
 
     private final BankAccountRepository bankAccountRepository;
+    private final TransactionService transactionService;
 
     public BankAccount getById(Long id) {
         return bankAccountRepository.findById(id)
@@ -76,5 +78,7 @@ public class BankAccountService {
 
         bankAccountRepository.save(bankAccountFrom);
         bankAccountRepository.save(bankAccountTo);
+
+        transactionService.create(amount, bankAccountFrom, bankAccountTo);
     }
 }
