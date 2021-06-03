@@ -16,8 +16,6 @@ public class Montgomery {
     private BigInteger factor;        // Equal to (reducer * reducer^-1 - 1) / n
     private BigInteger convertedOne;  // Equal to convertIn(BigInteger.ONE)
 
-
-
     // The modulus must be an odd number at least 3
     public Montgomery(BigInteger modulus) {
 

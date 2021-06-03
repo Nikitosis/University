@@ -15,9 +15,17 @@ public class ModPow {
     public static BigInteger modPow(BigInteger x, BigInteger exponent, BigInteger m)
     {
 
-        if (m.compareTo(BigInteger.ZERO) <= 0) throw new ArithmeticException("non-positive modulo");
-        if (exponent.compareTo(BigInteger.ZERO) < 0) return modPow(x.modInverse(m), exponent.negate(), m);
-        if (exponent.equals(BigInteger.ONE)) return x.mod(m);
+        if (m.compareTo(BigInteger.ZERO) <= 0) {
+            throw new ArithmeticException("non-positive modulo");
+        }
+
+        if (exponent.compareTo(BigInteger.ZERO) < 0) {
+            return modPow(x.modInverse(m), exponent.negate(), m);
+        }
+
+        if (exponent.equals(BigInteger.ONE)) {
+            return x.mod(m);
+        }
 
         BigInteger s = BigInteger.ONE;
         BigInteger t = x;
@@ -25,9 +33,11 @@ public class ModPow {
 
         while (!u.equals(BigInteger.ZERO))
         {
-            if (u.and(BigInteger.ONE).equals(BigInteger.ONE)) s = s.multiply(t).mod(m);
+            if (u.mod(BigInteger.TWO).equals(BigInteger.ONE)) {
+                s = s.multiply(t).mod(m);
+            }
 
-            u = u.shiftRight(1);
+            u = u.divide(BigInteger.TWO);
             t = t.multiply(t).mod(m);
         }
         return s;

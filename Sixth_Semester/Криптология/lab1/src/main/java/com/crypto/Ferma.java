@@ -28,8 +28,9 @@ public class Ferma {
             BigInteger a = getRandomFermaBase(n);
             a = a.modPow(n.subtract(BigInteger.ONE), n);
 
-            if (!a.equals(BigInteger.ONE))
+            if (!a.equals(BigInteger.ONE)) {
                 return false;
+            }
         }
 
         return true;
